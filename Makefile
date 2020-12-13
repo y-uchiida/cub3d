@@ -6,7 +6,7 @@
 #    By: yoguchi <yoguchi@student.42tokyo.jp>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/12/13 04:07:40 by yoguchi           #+#    #+#              #
-#    Updated: 2020/12/13 23:05:31 by yoguchi          ###   ########.fr        #
+#    Updated: 2020/12/14 00:53:24 by yoguchi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,6 +41,9 @@ OBJS = $(SRCS_PATH:.c=.o)
 all: $(NAME)
 
 $(NAME): $(OBJS)
+	if [ ! -d lib ]; then \
+		mkdir lib; \
+	fi
 	$(MAKE) -C ./src/libft
 	cp ./src/libft/libft.a ./lib/
 	$(MAKE) clean -C ./src/libft
@@ -64,6 +67,9 @@ fclean: clean
 re: fclean all
 
 debug: fclean $(OBJS)
+	if [ ! -d lib ]; then \
+		mkdir lib; \
+	fi
 	$(MAKE) -C ./src/libft
 	cp ./src/libft/libft.a ./lib/
 	$(MAKE) clean -C ./src/libft
