@@ -1,35 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_check_extension.c                               :+:      :+:    :+:   */
+/*   ft_free_splits.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yoguchi <yoguchi@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/12/13 18:51:35 by yoguchi           #+#    #+#             */
-/*   Updated: 2020/12/14 22:02:31 by yoguchi          ###   ########.fr       */
+/*   Created: 2020/12/14 03:43:49 by yoguchi           #+#    #+#             */
+/*   Updated: 2020/12/14 03:44:11 by yoguchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-bool	ft_check_extension(const char *str, const char *ext)
+void		ft_free_splits(char **splits)
 {
-	int i;
-	int	str_len;
-	int	ext_len;
+	char	**ptr;
 
-	str_len = ft_strlen(str);
-	ext_len = ft_strlen(ext);
-	if (str_len < ext_len)
-		return (false);
-	i = 1;
-	while (i <= ext_len)
+	ptr = splits;
+	while (*ptr != NULL)
 	{
-		if (str[str_len - i] != ext[ext_len - i])
-			return (false);
-		i++;
+		free(*ptr);
+		ptr++;
 	}
-	if (str[str_len - i] != '.')
-		return (false);
-	return (true);
+	free(splits);
+	splits = NULL;
+	return ;
 }

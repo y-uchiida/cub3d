@@ -6,7 +6,7 @@
 /*   By: yoguchi <yoguchi@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/13 22:15:57 by yoguchi           #+#    #+#             */
-/*   Updated: 2020/12/13 23:20:12 by yoguchi          ###   ########.fr       */
+/*   Updated: 2020/12/15 13:34:31 by yoguchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,39 +30,21 @@ static int	open_cub_file(char *file_path)
 	return (fd);
 }
 
-static void		free_splits(char **splits)
-{
-	char	**ptr;
-
-	printf("start free_splits.\n");
-
-	ptr = splits;
-	while (*ptr != NULL)
-	{
-		printf("now free \"%s\"\n", *ptr);
-		free(*ptr);
-		ptr++;
-	}
-	free(splits);
-	splits = NULL;
-	return ;
-}
-
 static bool	parse_line(t_game *game, const char *line)
 {
-	char 			*p_line;
+	char 			*data_head;
 	static bool		still_mapping = false;
 	char			**splits;
 	bool			ret;
 
-	p_line = (char *)line;
-	while (*p_line == ' ')
-		p_line++;
-	if (*p_line == '1' || still_mapping == true)
+	data_head = (char *)line;
+	while (*data_head == ' ')
+		data_head++;
+	if (*data_head == '1' || still_mapping == true)
 		return (map_parse(game, line));
-	splits = ft_split(p_line, ' ');
+	splits = ft_split(data_head, ' ');
 	ret = set_conf_items(game, (const char **)splits);
-	free_splits(splits);
+	(splits != NULL) ? ft_free_splits(splits) : 0;
 	if (ret == false)
 		return (false);
 	return (true);
@@ -106,8 +88,6 @@ bool		import_cub_file(t_game *game, char *file_path)
 	close(fd);
 	if (ret_read_cub_file == false)
 		return (false);
-	game->mlx.window.width = 1280;
-	game->mlx.window.height = 800;
 
 	return (true);
 }

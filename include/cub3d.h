@@ -6,7 +6,7 @@
 /*   By: yoguchi <yoguchi@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/13 15:59:58 by yoguchi           #+#    #+#             */
-/*   Updated: 2020/12/13 23:46:47 by yoguchi          ###   ########.fr       */
+/*   Updated: 2020/12/16 23:27:45 by yoguchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include <X11/extensions/XShm.h>
 # include <math.h>
 # include <limits.h>
+# include <float.h>
 # include <stdint.h>
 # include <stdbool.h>
 # include <unistd.h>
@@ -59,6 +60,8 @@ typedef struct		s_mlx_window
 	void			*ptr;
 	int				width;
 	int				height;
+	int				max_width;
+	int				max_height;
 }					t_mlx_window;
 
 typedef	struct		s_mlx
@@ -74,13 +77,24 @@ typedef struct		s_map
 	t_color			floor_color;
 }					t_map;
 
+typedef struct		s_img
+{
+	void			*ptr;
+	char			*data;
+	int				width;
+	int				height;
+	int				bpp;
+	int				size_line;
+	int				endian;
+}					t_img;
+
 typedef struct		s_texture
 {
-	unsigned int	*noth_wall;
-	unsigned int	*south_wall;
-	unsigned int	*east_wall;
-	unsigned int	*west_wall;
-	unsigned int	*sprite;
+	t_img			noth_wall;
+	t_img			south_wall;
+	t_img			east_wall;
+	t_img			west_wall;
+	t_img			sprite;
 }					t_texture;
 
 typedef struct		s_player
@@ -130,6 +144,8 @@ typedef struct		s_game
 
 bool				window_init(t_game *game);
 bool				import_cub_file(t_game *game, char *file_path);
+bool				import_xpm_file(t_game *game, t_img *tex,
+											const char *file_path);
 bool				map_parse(t_game *game, const char *line);
 bool				set_conf_items(t_game *game, const char **splits);
 bool				register_hooks(t_game *game);
@@ -141,6 +157,11 @@ int					game_data_update(t_game *game);
 void				game_exit(t_game *game);
 bool				map_has_wall_at(float x, float y);
 void				render_image(t_game *game);
+t_color					create_trgb(int t, int r, int g, int b);
+int					get_t(t_color trgb);
+int					get_r(t_color trgb);
+int					get_g(t_color trgb);
+int					get_b(t_color trgb);
 bool				put_errors(char *err);
 void				put_error_details(char *func_name);
 #endif

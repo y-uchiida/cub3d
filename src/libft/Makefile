@@ -46,6 +46,7 @@ ft_substr.c \
 ft_strjoin.c \
 ft_strtrim.c \
 ft_split.c \
+ft_free_splits.c \
 ft_itoa.c \
 ft_strmapi.c \
 ft_putchar_fd.c \

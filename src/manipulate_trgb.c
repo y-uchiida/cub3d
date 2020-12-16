@@ -1,35 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_check_extension.c                               :+:      :+:    :+:   */
+/*   manipulate_trgb.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yoguchi <yoguchi@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/12/13 18:51:35 by yoguchi           #+#    #+#             */
-/*   Updated: 2020/12/14 22:02:31 by yoguchi          ###   ########.fr       */
+/*   Created: 2020/12/16 01:29:13 by yoguchi           #+#    #+#             */
+/*   Updated: 2020/12/16 01:52:26 by yoguchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../include/cub3d.h"
 
-bool	ft_check_extension(const char *str, const char *ext)
+t_color		create_trgb(int t, int r, int g, int b)
 {
-	int i;
-	int	str_len;
-	int	ext_len;
+	return(t << 24 | r << 16 | g << 8 | b);
+}
 
-	str_len = ft_strlen(str);
-	ext_len = ft_strlen(ext);
-	if (str_len < ext_len)
-		return (false);
-	i = 1;
-	while (i <= ext_len)
-	{
-		if (str[str_len - i] != ext[ext_len - i])
-			return (false);
-		i++;
-	}
-	if (str[str_len - i] != '.')
-		return (false);
-	return (true);
+int			get_t(t_color trgb)
+{
+	return (trgb & (0xff000000 << 24));
+}
+
+int			get_r(t_color trgb)
+{
+	return (trgb & (0x00ff0000 >> 16));
+}
+
+int			get_g(t_color trgb)
+{
+	return (trgb & (0x0000ff00 >> 8));
+}
+
+int			get_b(t_color trgb)
+{
+	return (trgb & 0x000000ff);
 }

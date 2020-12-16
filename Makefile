@@ -6,7 +6,7 @@
 #    By: yoguchi <yoguchi@student.42tokyo.jp>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/12/13 04:07:40 by yoguchi           #+#    #+#              #
-#    Updated: 2020/12/14 00:53:24 by yoguchi          ###   ########.fr        #
+#    Updated: 2020/12/16 01:22:12 by yoguchi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,6 +19,7 @@ SRCS = \
  main\
  window_init\
  import_cub_file\
+ import_xpm_file\
  map_parse\
  set_conf_items\
  register_hooks\
@@ -29,6 +30,7 @@ SRCS = \
  game_data_update\
  game_exit\
  render_image\
+ manipulate_trgb\
  put_errors\
  put_error_details
 

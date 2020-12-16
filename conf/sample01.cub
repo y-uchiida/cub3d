@@ -1,12 +1,12 @@
-R 1920 1080
-NO ./path_to_the_north_texture
-SO ./path_to_the_south_texture
-WE ./path_to_the_west_texture
-EA ./path_to_the_east_texture
+R 5000 60000
+NO ./img/tex_noth.xpm
+SO ./img/tex_south.xpm
+WE ./img/tex_west.xpm
+EA ./img/tex_east.xpm
 
-S ./path_to_the_sprite_texture
-F 220,100,0
-C 225,30,0
+S ./img/tex_sprite.xpm
+F 99,99,99
+C 148,148,148
 
         1111111111111111111111111
         1000000000110000000000001
