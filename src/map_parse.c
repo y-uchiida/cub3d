@@ -6,7 +6,7 @@
 /*   By: yoguchi <yoguchi@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/13 23:05:58 by yoguchi           #+#    #+#             */
-/*   Updated: 2020/12/17 00:54:05 by yoguchi          ###   ########.fr       */
+/*   Updated: 2020/12/17 03:01:49 by yoguchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ static bool		extend_map_col(t_map *map)
 
 	if ((new_map = (char **)ft_calloc(sizeof(char *), map->rows + 1)) == NULL)
 	{
+		/* エラー出力、ひとつにまとめられるように変更したい */
 		put_errors(ERR_MALLOC_FAILED);
 		put_error_details("map_renew");
 		return (false);
@@ -36,7 +37,12 @@ static bool		extend_map_col(t_map *map)
 	{
 		printf("new_map[%d], %p\n", i, new_map[i]);
 		new_map[i] = (char *)ft_calloc(sizeof(char), map->cols + 1);
-		if (new_map[i] == )
+		if (new_map[i] == NULL)
+		{
+			put_errors(ERR_MALLOC_FAILED);
+			put_error_details("map_renew");
+			return (false);
+		}
 		i++;
 	}
 	return (true);
