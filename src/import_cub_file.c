@@ -6,7 +6,7 @@
 /*   By: yoguchi <yoguchi@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/13 22:15:57 by yoguchi           #+#    #+#             */
-/*   Updated: 2020/12/15 13:34:31 by yoguchi          ###   ########.fr       */
+/*   Updated: 2020/12/16 23:53:58 by yoguchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,14 +62,12 @@ static bool	read_cub_file(t_game *game, int fd)
 		if (ret_get_next_line == -1)
 		{
 			put_errors(ERR_CUBFILE_READ_FAILED);
-			put_error_details("parse_cub_file");
+			put_error_details("read_cub_file");
 			return (false);
 		}
-		else if (ret_get_next_line == 0)
-			break;
 		ret_parse_line = parse_line(game, line);
 		free(line);
-		if (ret_parse_line == false)
+		if (ret_parse_line == false || ret_get_next_line == 0)
 			break ;
 	}
 	if (ret_parse_line == false)
@@ -80,13 +78,13 @@ static bool	read_cub_file(t_game *game, int fd)
 bool		import_cub_file(t_game *game, char *file_path)
 {
 	int		fd;
-	bool	ret_read_cub_file;
+	bool	result_read_cub_file;
 
 	if ((fd = open_cub_file(file_path)) < 0)
 		return (false);	
-	ret_read_cub_file = read_cub_file(game, fd);
+	result_read_cub_file = read_cub_file(game, fd);
 	close(fd);
-	if (ret_read_cub_file == false)
+	if (result_read_cub_file == false)
 		return (false);
 
 	return (true);

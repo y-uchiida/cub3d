@@ -6,7 +6,7 @@
 /*   By: yoguchi <yoguchi@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/13 15:59:58 by yoguchi           #+#    #+#             */
-/*   Updated: 2020/12/16 23:27:45 by yoguchi          ###   ########.fr       */
+/*   Updated: 2020/12/17 00:24:40 by yoguchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,8 @@ typedef	struct		s_mlx
 typedef struct		s_map
 {
 	char			**map;
+	int				rows;
+	int				cols;
 	t_color			ceil_color;
 	t_color			floor_color;
 }					t_map;

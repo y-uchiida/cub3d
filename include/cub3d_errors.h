@@ -6,7 +6,7 @@
 /*   By: yoguchi <yoguchi@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/13 18:15:27 by yoguchi           #+#    #+#             */
-/*   Updated: 2020/12/16 23:32:32 by yoguchi          ###   ########.fr       */
+/*   Updated: 2020/12/17 00:41:54 by yoguchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,5 +30,6 @@
 # define ERR_CANT_OPEN_XPMFILE "given .xpm file cannot be opened."
 # define ERR_XMPFILE_READ_FAILED "reading a given .xpm file failed."
 # define ERR_XMPDATA_GET_FAILED "get a .xpm data failed."
+# define ERR_MALLOC_FAILED "malloc() failed."
 
 #endif
