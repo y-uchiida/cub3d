@@ -25,6 +25,8 @@ ft_isascii.c \
 ft_isdigit.c \
 ft_isprint.c \
 ft_isspace.c \
+ft_set_max.c \
+ft_set_min.c \
 ft_memccpy.c \
 ft_memchr.c \
 ft_memcmp.c \

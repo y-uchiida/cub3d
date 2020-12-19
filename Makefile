@@ -6,13 +6,13 @@
 #    By: yoguchi <yoguchi@student.42tokyo.jp>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/12/13 04:07:40 by yoguchi           #+#    #+#              #
-#    Updated: 2020/12/16 01:22:12 by yoguchi          ###   ########.fr        #
+#    Updated: 2020/12/19 14:33:38 by yoguchi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = cub3D
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror -O3
+CFLAGS = -Wall -Wextra -Werror
 LIBS = -L./lib -lft -lmlx -lXext -lX11 -lm -lz
 
 SRCS = \
@@ -21,6 +21,7 @@ SRCS = \
  import_cub_file\
  import_xpm_file\
  map_parse\
+ map_free\
  set_conf_items\
  register_hooks\
  player_init\
@@ -32,7 +33,6 @@ SRCS = \
  render_image\
  manipulate_trgb\
  put_errors\
- put_error_details
 
 SRCS_PATH = $(addsuffix .c, $(addprefix src/, $(SRCS)))
 OBJS = $(SRCS_PATH:.c=.o)
@@ -78,9 +78,6 @@ debug: fclean $(OBJS)
 	$(MAKE) -C ./src/minilibx-linux
 	cp ./src/minilibx-linux/libmlx* ./lib/
 	$(MAKE) clean -C ./src/minilibx-linux
-	$(CC) $(CFLAGS) -g -fsanitize=address -o $(NAME) $(OBJS) $(LIBS)
+	$(CC) $(CFLAGS) -g -O0 -fsanitize=address -o $(NAME) $(OBJS) $(LIBS)
 
-run:	
-	./$(NAME)
-
-.PHONY: all clean fclean re debug run
+.PHONY: all clean fclean re debug

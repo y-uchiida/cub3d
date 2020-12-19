@@ -6,7 +6,7 @@
 /*   By: yoguchi <yoguchi@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/13 22:15:57 by yoguchi           #+#    #+#             */
-/*   Updated: 2020/12/15 13:34:31 by yoguchi          ###   ########.fr       */
+/*   Updated: 2020/12/19 16:42:01 by yoguchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,19 +18,18 @@ static int	open_cub_file(char *file_path)
 
 	if (ft_check_extension(file_path, "cub") == false)
 	{
-		put_errors(ERR_NOT_CUBFILE);
+		put_errors(ERR_NOT_CUBFILE, "open_cub_file");
 		return (-1);
 	}
 	if ((fd = open(file_path, O_RDONLY)) < 2)
 	{
-		put_errors(ERR_CANT_OPEN_CUBFILE);
-		put_error_details("open_cub_file");
+		put_errors(ERR_CANT_OPEN_CUBFILE, "open_cub_file");
 		return (-1);
 	}
 	return (fd);
 }
 
-static bool	parse_line(t_game *game, const char *line)
+static bool	parse_line(t_game *game, char *line)
 {
 	char 			*data_head;
 	static bool		still_mapping = false;
@@ -60,16 +59,10 @@ static bool	read_cub_file(t_game *game, int fd)
 	{
 		ret_get_next_line = get_next_line(fd, &line);
 		if (ret_get_next_line == -1)
-		{
-			put_errors(ERR_CUBFILE_READ_FAILED);
-			put_error_details("parse_cub_file");
-			return (false);
-		}
-		else if (ret_get_next_line == 0)
-			break;
+			return (put_errors(ERR_CUBFILE_READ_FAILED, "read_cub_file"));
 		ret_parse_line = parse_line(game, line);
 		free(line);
-		if (ret_parse_line == false)
+		if (ret_parse_line == false || ret_get_next_line == 0)
 			break ;
 	}
 	if (ret_parse_line == false)
@@ -80,13 +73,13 @@ static bool	read_cub_file(t_game *game, int fd)
 bool		import_cub_file(t_game *game, char *file_path)
 {
 	int		fd;
-	bool	ret_read_cub_file;
+	bool	result_read_cub_file;
 
 	if ((fd = open_cub_file(file_path)) < 0)
 		return (false);	
-	ret_read_cub_file = read_cub_file(game, fd);
+	result_read_cub_file = read_cub_file(game, fd);
 	close(fd);
-	if (ret_read_cub_file == false)
+	if (result_read_cub_file == false)
 		return (false);
 
 	return (true);

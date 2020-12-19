@@ -6,7 +6,7 @@
 /*   By: yoguchi <yoguchi@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/03 06:15:26 by yoguchi           #+#    #+#             */
-/*   Updated: 2020/12/13 22:59:08 by yoguchi          ###   ########.fr       */
+/*   Updated: 2020/12/19 17:56:00 by yoguchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ int					ft_isascii(int c);
 int					ft_isdigit(int c);
 int					ft_isprint(int c);
 int					ft_isspace(int c);
+int					ft_set_max(int num1, int num2);
+int					ft_set_min(int num1, int num2);
 int					ft_memcmp(const void *s1, const void *s2, size_t n);
 void				*ft_memset(void *s, int c, size_t n);
 void				ft_bzero(void *s, size_t n);
