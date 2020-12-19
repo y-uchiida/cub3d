@@ -6,7 +6,7 @@
 /*   By: yoguchi <yoguchi@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/13 18:15:27 by yoguchi           #+#    #+#             */
-/*   Updated: 2020/12/17 00:41:54 by yoguchi          ###   ########.fr       */
+/*   Updated: 2020/12/19 18:10:58 by yoguchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,13 @@
 # define ERR_DUPLICATE_TEXTURE_INPUT ".cub file has duplicate texture input."
 # define ERR_INVALID_COLOR_INPUT "ceil/floor color in .cub file is invalid."
 # define ERR_DUPLICATE_COLOR_INPUT ".cub file has duplicate ceil/floor input."
+# define ERR_INVALID_CONF_PARAM ".cub file has invalid paramater item."
 # define ERR_NOT_XPMFILE "given file is not xpm."
 # define ERR_CANT_OPEN_XPMFILE "given .xpm file cannot be opened."
 # define ERR_XMPFILE_READ_FAILED "reading a given .xpm file failed."
 # define ERR_XMPDATA_GET_FAILED "get a .xpm data failed."
 # define ERR_MALLOC_FAILED "malloc() failed."
+# define ERR_INVALID_MAP_INPUT "map in .cub file has invalid character."
+# define ERR_DUPLICATE_MAP_INPUT "map in .cub file has multiple player char."
 
 #endif

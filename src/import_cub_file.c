@@ -6,7 +6,7 @@
 /*   By: yoguchi <yoguchi@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/13 22:15:57 by yoguchi           #+#    #+#             */
-/*   Updated: 2020/12/16 23:53:58 by yoguchi          ###   ########.fr       */
+/*   Updated: 2020/12/19 16:42:01 by yoguchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,19 +18,18 @@ static int	open_cub_file(char *file_path)
 
 	if (ft_check_extension(file_path, "cub") == false)
 	{
-		put_errors(ERR_NOT_CUBFILE);
+		put_errors(ERR_NOT_CUBFILE, "open_cub_file");
 		return (-1);
 	}
 	if ((fd = open(file_path, O_RDONLY)) < 2)
 	{
-		put_errors(ERR_CANT_OPEN_CUBFILE);
-		put_error_details("open_cub_file");
+		put_errors(ERR_CANT_OPEN_CUBFILE, "open_cub_file");
 		return (-1);
 	}
 	return (fd);
 }
 
-static bool	parse_line(t_game *game, const char *line)
+static bool	parse_line(t_game *game, char *line)
 {
 	char 			*data_head;
 	static bool		still_mapping = false;
@@ -60,11 +59,7 @@ static bool	read_cub_file(t_game *game, int fd)
 	{
 		ret_get_next_line = get_next_line(fd, &line);
 		if (ret_get_next_line == -1)
-		{
-			put_errors(ERR_CUBFILE_READ_FAILED);
-			put_error_details("read_cub_file");
-			return (false);
-		}
+			return (put_errors(ERR_CUBFILE_READ_FAILED, "read_cub_file"));
 		ret_parse_line = parse_line(game, line);
 		free(line);
 		if (ret_parse_line == false || ret_get_next_line == 0)

@@ -6,7 +6,7 @@
 /*   By: yoguchi <yoguchi@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/13 15:59:58 by yoguchi           #+#    #+#             */
-/*   Updated: 2020/12/17 00:24:40 by yoguchi          ###   ########.fr       */
+/*   Updated: 2020/12/19 18:33:29 by yoguchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,10 +92,10 @@ typedef struct		s_img
 
 typedef struct		s_texture
 {
-	t_img			noth_wall;
-	t_img			south_wall;
-	t_img			east_wall;
-	t_img			west_wall;
+	t_img			wall_no;
+	t_img			wall_so;
+	t_img			wall_we;
+	t_img			wall_ea;
 	t_img			sprite;
 }					t_texture;
 
@@ -103,6 +103,8 @@ typedef struct		s_player
 {
 	float			x;
 	float			y;
+	int				initial_x;
+	int				initial_y;
 	float			rotation_angle;
 	float			move_speed;
 	float			turn_speed;
@@ -148,7 +150,8 @@ bool				window_init(t_game *game);
 bool				import_cub_file(t_game *game, char *file_path);
 bool				import_xpm_file(t_game *game, t_img *tex,
 											const char *file_path);
-bool				map_parse(t_game *game, const char *line);
+bool				map_parse(t_game *game, char *line);
+bool				map_free(char **map);
 bool				set_conf_items(t_game *game, const char **splits);
 bool				register_hooks(t_game *game);
 bool				player_init(t_game *game);
@@ -159,11 +162,10 @@ int					game_data_update(t_game *game);
 void				game_exit(t_game *game);
 bool				map_has_wall_at(float x, float y);
 void				render_image(t_game *game);
-t_color					create_trgb(int t, int r, int g, int b);
+t_color				create_trgb(int t, int r, int g, int b);
 int					get_t(t_color trgb);
 int					get_r(t_color trgb);
 int					get_g(t_color trgb);
 int					get_b(t_color trgb);
-bool				put_errors(char *err);
-void				put_error_details(char *func_name);
+bool				put_errors(char *err, char *func_name);
 #endif

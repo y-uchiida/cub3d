@@ -6,7 +6,7 @@
 /*   By: yoguchi <yoguchi@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/13 14:33:53 by yoguchi           #+#    #+#             */
-/*   Updated: 2020/12/13 15:39:15 by yoguchi          ###   ########.fr       */
+/*   Updated: 2020/12/19 18:17:59 by yoguchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 static bool	game_free(t_game *game)
 {
+	map_free(game->map.map);
 	mlx_destroy_window(game->mlx.ptr, game->mlx.window.ptr);
 	mlx_destroy_display(game->mlx.ptr);
 	return (true);

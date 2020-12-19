@@ -6,7 +6,7 @@
 /*   By: yoguchi <yoguchi@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/13 04:06:43 by yoguchi           #+#    #+#             */
-/*   Updated: 2020/12/16 23:37:39 by yoguchi          ###   ########.fr       */
+/*   Updated: 2020/12/19 18:35:07 by yoguchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,35 +37,57 @@ static bool setup(t_game *game)
 		get_b(game->map.floor_color));
 
 	printf(" - textures\n");
-	printf(" - noth_wall : %p\n", &game->texture.noth_wall);
-	printf(" - noth_wall.data : %p\n", game->texture.noth_wall.data);
-	printf(" - noth_wall.data val: %.10s\n", game->texture.noth_wall.data);
-	printf(" - noth_wall.data int: %d\n", *(game->texture.noth_wall.data));
-	printf(" - noth_wall.width : %d\n", game->texture.noth_wall.width);
+	printf(" - wall_no : %p\n", &game->texture.wall_no);
+	printf(" - wall_no.data : %p\n", game->texture.wall_no.data);
+	printf(" - wall_no.data int: %d\n", *(game->texture.wall_no.data));
+	printf(" - wall_no.width : %d\n", game->texture.wall_no.width);
 
-	printf(" - south_wall: %p\n", &game->texture.south_wall);
-	printf(" - south_wall.data: %p\n", game->texture.south_wall.data);
-	printf(" - south_wall.data val: %.10s\n", game->texture.south_wall.data);
-	printf(" - south_wall.data int: %d\n", *(game->texture.south_wall.data));
-	printf(" - south_wall.width : %d\n", game->texture.south_wall.width);
+	printf(" - wall_so: %p\n", &game->texture.wall_so);
+	printf(" - wall_so.data: %p\n", game->texture.wall_so.data);
+	printf(" - wall_so.data int: %d\n", *(game->texture.wall_so.data));
+	printf(" - wall_so.width : %d\n", game->texture.wall_so.width);
 
-	printf(" - east_wall : %p\n", &game->texture.east_wall);
-	printf(" - east_wall.data : %p\n", game->texture.east_wall.data);
-	printf(" - east_wall.data val: %.10s\n", game->texture.east_wall.data);
-	printf(" - east_wall.data int: %d\n", *(game->texture.east_wall.data));
-	printf(" - east_wall.width : %d\n", game->texture.east_wall.width);
+	printf(" - wall_ea : %p\n", &game->texture.wall_ea);
+	printf(" - wall_ea.data : %p\n", game->texture.wall_ea.data);
+	printf(" - wall_ea.data int: %d\n", *(game->texture.wall_ea.data));
+	printf(" - wall_ea.width : %d\n", game->texture.wall_ea.width);
 
-	printf(" - west_wall : %p\n", &game->texture.west_wall);
-	printf(" - west_wall.data : %p\n", game->texture.west_wall.data);
-	printf(" - west_wall.data val: %.10s\n", game->texture.west_wall.data);
-	printf(" - west_wall.data int: %d\n", *(game->texture.west_wall.data));
-	printf(" - west_wall.width : %d\n", game->texture.west_wall.width);
+	printf(" - wall_we : %p\n", &game->texture.wall_we);
+	printf(" - wall_we.data : %p\n", game->texture.wall_we.data);
+	printf(" - wall_we.data int: %d\n", *(game->texture.wall_we.data));
+	printf(" - wall_we.width : %d\n", game->texture.wall_we.width);
 
 	printf(" - sprite    : %p\n", &game->texture.sprite);
 	printf(" - sprite.data    : %p\n", game->texture.sprite.data);
-	printf(" - sprite.data val: %.10s\n", game->texture.sprite.data);
 	printf(" - sprite.data int: %d\n", *(game->texture.sprite.data));
 	printf(" - sprite.width : %d\n", game->texture.sprite.width);
+
+	printf("\n");
+
+	printf("map field\n");
+	int i = 0;
+	while(game->map.map[i] != NULL)
+	{
+		printf("[%03d]%s\n", i, game->map.map[i]);
+		i++;
+	}
+
+	printf ("\n");
+
+	printf("player\n");
+	printf(" - x: %f\n", game->player.x);
+	printf(" - y: %f\n", game->player.y);
+	printf(" - initial_x: %d\n", game->player.initial_x);
+	printf(" - initial_y: %d\n", game->player.initial_y);
+	printf(" - rotation_angle: %f\n", game->player.rotation_angle);
+	printf(" - move_speed: %f\n", game->player.move_speed);
+	printf(" - turn_speed: %f\n", game->player.turn_speed);
+	printf(" - move_redection: %d\n", game->player.move_direction);
+	printf(" - turn_direction: %d\n", game->player.turn_direction);
+	
+	printf ("\n");
+
+	printf("data checks end.\n");
 
 	return (true);
 }
@@ -73,7 +95,7 @@ static bool setup(t_game *game)
 bool		game_init(t_game *game)
 {
 	if ((game->mlx.ptr = mlx_init()) == NULL)
-		return (put_errors(ERR_MLX_INIT_FAILURE));
+		return (put_errors(ERR_MLX_INIT_FAILURE, "game_init"));
 	mlx_get_screen_size(game->mlx.ptr,
 				&game->mlx.window.max_width, &game->mlx.window.max_height);
 	game->mlx.window.width = INT_MIN;
@@ -82,6 +104,8 @@ bool		game_init(t_game *game)
 	game->map.floor_color = NONE;
 	game->player.x = FLT_MIN;
 	game->player.y = FLT_MIN;
+	game->player.initial_x = INT_MIN;
+	game->player.initial_y = INT_MIN;
 	return (true);
 }
 
@@ -98,7 +122,7 @@ int			main(int argc, char *argv[])
 	}
 	else
 	{
-		put_errors(ERR_NO_ARG);
+		put_errors(ERR_NO_ARG, "main");
 		return (EXIT_FAILURE);
 	}
 	setup(&game);
