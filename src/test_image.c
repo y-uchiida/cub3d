@@ -10,8 +10,21 @@ int main (){
 
 	char *e_data, *w_data;
 
+	void *img_ptr;
+	void *img_data;
+
 	game.mlx.ptr = mlx_init();
 	game.mlx.window.ptr = mlx_new_window(game.mlx.ptr, 1000, 1000, "test");
+
+	// game.frame->data = mlx_get_data_addr(game.frame->ptr, &(game.frame->bpp), &(game.frame->size_line), &(game.frame->endian));
+	img_ptr = mlx_new_image(game.mlx.ptr, 10, 10);
+	game.frame->ptr = img_ptr;
+	img_data = mlx_get_data_addr(img_ptr, &bpp, &size_line, &endian);
+
+	printf("new img\n");
+	printf("bpp: %d\n", bpp);
+	printf("size_line: %d\n", size_line);
+	printf("endian: %d\n", endian);
 
 	e_img = mlx_xpm_file_to_image(game.mlx.ptr,
 								"./img/tex_east.xpm", &w, &h);
