@@ -1,36 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   game_exit.c                                        :+:      :+:    :+:   */
+/*   color_change_intensity.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yoguchi <yoguchi@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/12/13 14:33:53 by yoguchi           #+#    #+#             */
-/*   Updated: 2020/12/23 05:00:09 by yoguchi          ###   ########.fr       */
+/*   Created: 2020/12/23 04:32:11 by yoguchi           #+#    #+#             */
+/*   Updated: 2020/12/23 04:40:02 by yoguchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
-void show_all_data(t_game *game);
-
-static bool	game_free(t_game *game)
+void	color_change_intensity(t_color *color, float factor)
 {
-	map_free(game->map.map);
-	game->map.map = NULL;
-	textures_free(game);
-	mlx_destroy_image(game->mlx.ptr, game->frame->ptr);
-	mlx_destroy_window(game->mlx.ptr, game->mlx.window.ptr);
-	mlx_destroy_display(game->mlx.ptr);
-	return (true);
-}
+	t_color t;
+	t_color r;
+	t_color g;
+	t_color b;
 
-void		game_exit(t_game *game)
-{
-	game_free(game);
+	t = (*color & 0xff000000);
+	r = (*color & 0x00ff0000) * factor;
+	g = (*color & 0x0000ff00) * factor;
+	b = (*color & 0x000000ff) * factor;
 
-				show_all_data(game);
-
-	exit(0);
-	return ;
+	*color = (t | (r & 0x00ff0000) | (g & 0x0000ff00) | (b & 0x000000ff));
 }

@@ -1,36 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   game_exit.c                                        :+:      :+:    :+:   */
+/*   frame_init.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yoguchi <yoguchi@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/12/13 14:33:53 by yoguchi           #+#    #+#             */
-/*   Updated: 2020/12/23 05:00:09 by yoguchi          ###   ########.fr       */
+/*   Created: 2020/12/23 03:44:13 by yoguchi           #+#    #+#             */
+/*   Updated: 2020/12/23 05:00:43 by yoguchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
-void show_all_data(t_game *game);
-
-static bool	game_free(t_game *game)
+bool				frame_init(t_game *game)
 {
-	map_free(game->map.map);
-	game->map.map = NULL;
-	textures_free(game);
-	mlx_destroy_image(game->mlx.ptr, game->frame->ptr);
-	mlx_destroy_window(game->mlx.ptr, game->mlx.window.ptr);
-	mlx_destroy_display(game->mlx.ptr);
+	t_img			*frame;
+	t_mlx_window	window;
+
+	frame = game->frame;
+	window = game->mlx.window;
+	frame->ptr = mlx_new_image(game->mlx.ptr, window.width, window.height);
+	if (frame->ptr == NULL)
+		return (put_errors(ERR_MLX_IMAGE_FAILD, "frame_init"));
+	frame->data = mlx_get_data_addr(frame->ptr, &(frame->bpp),
+									&(frame->size_line), &(frame->endian));
 	return (true);
-}
-
-void		game_exit(t_game *game)
-{
-	game_free(game);
-
-				show_all_data(game);
-
-	exit(0);
-	return ;
 }

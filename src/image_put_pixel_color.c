@@ -1,36 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   game_exit.c                                        :+:      :+:    :+:   */
+/*   image_put_pixel_color.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yoguchi <yoguchi@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/12/13 14:33:53 by yoguchi           #+#    #+#             */
-/*   Updated: 2020/12/23 05:00:09 by yoguchi          ###   ########.fr       */
+/*   Created: 2020/12/23 04:03:14 by yoguchi           #+#    #+#             */
+/*   Updated: 2020/12/23 04:52:49 by yoguchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
-void show_all_data(t_game *game);
-
-static bool	game_free(t_game *game)
+void		image_put_pixel_color(t_img *img, int x, int y, t_color color)
 {
-	map_free(game->map.map);
-	game->map.map = NULL;
-	textures_free(game);
-	mlx_destroy_image(game->mlx.ptr, game->frame->ptr);
-	mlx_destroy_window(game->mlx.ptr, game->mlx.window.ptr);
-	mlx_destroy_display(game->mlx.ptr);
-	return (true);
-}
+	char	*dest;
 
-void		game_exit(t_game *game)
-{
-	game_free(game);
-
-				show_all_data(game);
-
-	exit(0);
+    dest = img->data + (y * img->size_line + x * (img->bpp / 8));
+    *(unsigned int *)dest = color;
 	return ;
 }

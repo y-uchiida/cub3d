@@ -1,36 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   game_exit.c                                        :+:      :+:    :+:   */
+/*   normalize_angle.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yoguchi <yoguchi@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/12/13 14:33:53 by yoguchi           #+#    #+#             */
-/*   Updated: 2020/12/23 05:00:09 by yoguchi          ###   ########.fr       */
+/*   Created: 2020/12/19 22:32:31 by yoguchi           #+#    #+#             */
+/*   Updated: 2020/12/19 22:34:44 by yoguchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
-void show_all_data(t_game *game);
-
-static bool	game_free(t_game *game)
+void	normalize_angle(float *angle)
 {
-	map_free(game->map.map);
-	game->map.map = NULL;
-	textures_free(game);
-	mlx_destroy_image(game->mlx.ptr, game->frame->ptr);
-	mlx_destroy_window(game->mlx.ptr, game->mlx.window.ptr);
-	mlx_destroy_display(game->mlx.ptr);
-	return (true);
-}
-
-void		game_exit(t_game *game)
-{
-	game_free(game);
-
-				show_all_data(game);
-
-	exit(0);
+	*angle = remainder(*angle, TWO_PI);
+	if (*angle < 0) 
+		*angle = TWO_PI + *angle;
 	return ;
 }

@@ -6,20 +6,15 @@
 /*   By: yoguchi <yoguchi@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/13 04:06:43 by yoguchi           #+#    #+#             */
-/*   Updated: 2020/12/19 18:35:07 by yoguchi          ###   ########.fr       */
+/*   Updated: 2020/12/23 04:15:03 by yoguchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
-static bool setup(t_game *game)
+void show_all_data(t_game *game)
 {
-	game->running = true;
-	window_init(game);
-	player_init(game);
-	ray_init(game);
-	register_hooks(game);
-
+	int i;
 	/* struct datas show: */
 	printf("mlx window\n");
 	printf("  - width: %d\n", game->mlx.window.width);
@@ -39,39 +34,60 @@ static bool setup(t_game *game)
 	printf(" - textures\n");
 	printf(" - wall_no : %p\n", &game->texture.wall_no);
 	printf(" - wall_no.data : %p\n", game->texture.wall_no.data);
-	printf(" - wall_no.data int: %d\n", *(game->texture.wall_no.data));
+	if (game->texture.wall_no.data != NULL)
+		printf(" - wall_no.data int: %d\n", *(game->texture.wall_no.data));
+	else
+		printf(" - wall_no_data int: nothing\n");
 	printf(" - wall_no.width : %d\n", game->texture.wall_no.width);
 
 	printf(" - wall_so: %p\n", &game->texture.wall_so);
 	printf(" - wall_so.data: %p\n", game->texture.wall_so.data);
-	printf(" - wall_so.data int: %d\n", *(game->texture.wall_so.data));
+	if (game->texture.wall_so.data != NULL)
+		printf(" - wall_so.data int: %d\n", *(game->texture.wall_so.data));
+	else
+		printf(" - wall_so_data int: nothing\n");
 	printf(" - wall_so.width : %d\n", game->texture.wall_so.width);
 
 	printf(" - wall_ea : %p\n", &game->texture.wall_ea);
 	printf(" - wall_ea.data : %p\n", game->texture.wall_ea.data);
-	printf(" - wall_ea.data int: %d\n", *(game->texture.wall_ea.data));
+	if (game->texture.wall_ea.data != NULL)
+		printf(" - wall_ea.data int: %d\n", *(game->texture.wall_ea.data));
+	else
+		printf(" - wall_ea_data int: nothing\n");
 	printf(" - wall_ea.width : %d\n", game->texture.wall_ea.width);
 
 	printf(" - wall_we : %p\n", &game->texture.wall_we);
 	printf(" - wall_we.data : %p\n", game->texture.wall_we.data);
-	printf(" - wall_we.data int: %d\n", *(game->texture.wall_we.data));
+	if (game->texture.wall_we.data != NULL)
+		printf(" - wall_we.data int: %d\n", *(game->texture.wall_we.data));
+	else
+		printf(" - wall_we_data int: nothing\n");
 	printf(" - wall_we.width : %d\n", game->texture.wall_we.width);
 
 	printf(" - sprite    : %p\n", &game->texture.sprite);
 	printf(" - sprite.data    : %p\n", game->texture.sprite.data);
-	printf(" - sprite.data int: %d\n", *(game->texture.sprite.data));
+	if (game->texture.sprite.data != NULL)
+		printf(" - sprite.data int: %d\n", *(game->texture.sprite.data));
+	else
+		printf(" - sprite int: nothing\n");
 	printf(" - sprite.width : %d\n", game->texture.sprite.width);
 
 	printf("\n");
 
 	printf("map field\n");
-	int i = 0;
-	while(game->map.map[i] != NULL)
+	if (game->map.map != NULL)
 	{
-		printf("[%03d]%s\n", i, game->map.map[i]);
-		i++;
+		printf("game->map.map: %p\n", game->map.map);
+		i = 0;
+		while(game->map.map[i] != NULL)
+		{
+			printf("[%03d]%s\n", i, game->map.map[i]);
+			i++;
+		}
 	}
-
+	else
+		printf(" - no map data.\n");
+	
 	printf ("\n");
 
 	printf("player\n");
@@ -85,9 +101,38 @@ static bool setup(t_game *game)
 	printf(" - move_redection: %d\n", game->player.move_direction);
 	printf(" - turn_direction: %d\n", game->player.turn_direction);
 	
+	printf("player on grid: [%f][%f]\n",
+				floor(game->player.y / TILE_SIZE),
+				floor(game->player.x / TILE_SIZE));
+
 	printf ("\n");
 
-	printf("data checks end.\n");
+	printf("rays.ray\n");
+	i = 0;
+	while (i < game->rays.num)
+	{
+		printf(" - ray[%d]->angle(%p): %f\n", i, &(game->rays.ray[i]->angle), game->rays.ray[i]->angle);
+		i++;
+	}
+	printf("\n");
+
+	printf("all game data printed.\n");
+
+	return ;
+}
+
+static bool setup(t_game *game)
+{
+	game->running = true;
+	window_init(game);
+	player_init(game);
+	frame_init(game);
+	ray_init(game);
+	mlx_do_key_autorepeaton(game->mlx.ptr);
+	mlx_do_sync(game->mlx.ptr);
+	register_hooks(game);
+	
+	show_all_data(game);
 
 	return (true);
 }

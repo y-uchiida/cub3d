@@ -6,7 +6,7 @@
 /*   By: yoguchi <yoguchi@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/13 14:26:21 by yoguchi           #+#    #+#             */
-/*   Updated: 2020/12/13 14:33:35 by yoguchi          ###   ########.fr       */
+/*   Updated: 2020/12/21 21:49:10 by yoguchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,5 +21,5 @@ int		game_data_update(t_game *game)
 		player_move(game);
 		ray_cast_all(game);
 	}
-	return (0);
+	return (EXIT_SUCCESS);
 }

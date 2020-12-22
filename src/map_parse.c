@@ -6,7 +6,7 @@
 /*   By: yoguchi <yoguchi@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/13 23:05:58 by yoguchi           #+#    #+#             */
-/*   Updated: 2020/12/19 18:58:01 by yoguchi          ###   ########.fr       */
+/*   Updated: 2020/12/20 02:14:22 by yoguchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ static bool		set_player_position(t_game *game, int col, float dir)
 	if (game->player.x != FLT_MIN || game->player.y != FLT_MIN)
 		return (put_errors(ERR_DUPLICATE_MAP_INPUT, "set_player_position"));
 	game->player.x = (col + 0.5) * TILE_SIZE;
-	game->player.y = (game->map.rows - 0.5) + TILE_SIZE;
+	game->player.y = (game->map.rows - 0.5) * TILE_SIZE;
 	game->player.initial_x = col;
 	game->player.initial_y = game->map.rows - 1;
 	game->player.rotation_angle = dir;
