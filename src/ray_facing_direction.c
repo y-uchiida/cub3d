@@ -1,36 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   game_exit.c                                        :+:      :+:    :+:   */
+/*   ray_facing_direction.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yoguchi <yoguchi@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/12/13 14:33:53 by yoguchi           #+#    #+#             */
-/*   Updated: 2020/12/23 05:00:09 by yoguchi          ###   ########.fr       */
+/*   Created: 2020/12/20 03:02:49 by yoguchi           #+#    #+#             */
+/*   Updated: 2020/12/20 19:19:40 by yoguchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
-void show_all_data(t_game *game);
-
-static bool	game_free(t_game *game)
+void	ray_facing_direction(t_ray *ray, float ray_angle)
 {
-	map_free(game->map.map);
-	game->map.map = NULL;
-	textures_free(game);
-	mlx_destroy_image(game->mlx.ptr, game->frame->ptr);
-	mlx_destroy_window(game->mlx.ptr, game->mlx.window.ptr);
-	mlx_destroy_display(game->mlx.ptr);
-	return (true);
-}
 
-void		game_exit(t_game *game)
-{
-	game_free(game);
-
-				show_all_data(game);
-
-	exit(0);
-	return ;
+	if (ray_angle > 0 && ray_angle < PI)
+		ray->is_facing_down = true;
+	else
+		ray->is_facing_down =  false;
+	if (ray_angle < 1 / 2 * PI || ray_angle > 3 / 2 * PI)
+		ray->is_facing_right = true;
+	else
+		ray->is_facing_right = false;
 }

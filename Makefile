@@ -6,7 +6,7 @@
 #    By: yoguchi <yoguchi@student.42tokyo.jp>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/12/13 04:07:40 by yoguchi           #+#    #+#              #
-#    Updated: 2020/12/19 14:33:38 by yoguchi          ###   ########.fr        #
+#    Updated: 2020/12/23 04:33:52 by yoguchi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,15 +22,28 @@ SRCS = \
  import_xpm_file\
  map_parse\
  map_free\
+ map_contain_the_coordinate\
+ textures_free\
  set_conf_items\
  register_hooks\
  player_init\
  player_move\
+ frame_init\
+ image_put_pixel_color\
+ color_change_intensity\
  ray_init\
  ray_cast_all\
+ ray_cast\
+ ray_has_horz_wall_interception\
+ ray_has_vert_wall_interception\
+ ray_facing_direction\
+ ray_free\
+ normalize_angle\
+ distance_between_points\
  game_data_update\
  game_exit\
- render_image\
+ map_has_wall_at\
+ render_fov\
  manipulate_trgb\
  put_errors\
 

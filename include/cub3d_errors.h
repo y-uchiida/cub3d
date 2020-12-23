@@ -6,7 +6,7 @@
 /*   By: yoguchi <yoguchi@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/13 18:15:27 by yoguchi           #+#    #+#             */
-/*   Updated: 2020/12/19 18:10:58 by yoguchi          ###   ########.fr       */
+/*   Updated: 2020/12/23 04:01:50 by yoguchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,5 +34,6 @@
 # define ERR_MALLOC_FAILED "malloc() failed."
 # define ERR_INVALID_MAP_INPUT "map in .cub file has invalid character."
 # define ERR_DUPLICATE_MAP_INPUT "map in .cub file has multiple player char."
+# define ERR_MLX_IMAGE_FAILD "create new image data faild."
 
 #endif
