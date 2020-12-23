@@ -1,22 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   player_init.c                                      :+:      :+:    :+:   */
+/*   ray_render.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yoguchi <yoguchi@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/12/13 12:20:55 by yoguchi           #+#    #+#             */
-/*   Updated: 2020/12/24 02:18:58 by yoguchi          ###   ########.fr       */
+/*   Created: 2020/12/24 01:48:04 by yoguchi           #+#    #+#             */
+/*   Updated: 2020/12/24 01:58:08 by yoguchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
-bool player_init(t_game *game)
+void		ray_render(t_game *game)
 {
-	game->player.move_direction = 0;
-	game->player.turn_direction = 0;
-	game->player.move_speed = 0.5;
-	game->player.turn_speed = 45 * (PI / 180);
-	return (true);
+	int		i;
+	t_line	line;
+
+	i = 0;
+	while (i < game->rays.num)
+	{
+		line.x0 = game->player.x * MINIMAP_SCALE_FACTOR;
+		line.y0 = game->player.y * MINIMAP_SCALE_FACTOR;
+		line.x1 = game->rays.ray[i]->wall_intercept_x * MINIMAP_SCALE_FACTOR;
+		line.y1 = game->rays.ray[i]->wall_intercept_y * MINIMAP_SCALE_FACTOR;
+		line.color = RED;
+		draw_line(&(game->frame), line);
+		i++;
+	}
 }

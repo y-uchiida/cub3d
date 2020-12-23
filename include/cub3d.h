@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoguchi <yoguchi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yoguchi <yoguchi@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/13 15:59:58 by yoguchi           #+#    #+#             */
-/*   Updated: 2020/12/23 11:42:38 by yoguchi          ###   ########.fr       */
+/*   Updated: 2020/12/24 02:01:04 by yoguchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,8 @@
 # define TWO_PI 6.28318530
 # define FOV_ANGLE (60 * (PI / 180))
 
-# define TILE_SIZE 1000
-# define MINIMAP_SCALE_FACTOR 0.2
+# define TILE_SIZE 64
+# define MINIMAP_SCALE_FACTOR 0.25
 
 # define TABINDEX_X 0
 # define TABINDEX_Y 1
@@ -172,12 +172,32 @@ typedef struct 		s_projection
 	int				distance_from_top;
 }					t_projection;
 
+typedef	struct		s_line
+{
+	int				x0;
+	int				y0;
+	int				x1;
+	int				y1;
+	t_color			color;
+}					t_line;
+
+typedef struct		s_rect
+{
+	int				x0;
+	int				y0;
+	int				width;
+	int				height;
+	t_color			color;
+}					t_rect;
+
+
 bool				window_init(t_game *game);
 bool				import_cub_file(t_game *game, char *file_path);
 bool				import_xpm_file(t_game *game, t_img *tex,
 											const char *file_path);
 bool				map_parse(t_game *game, char *line);
 bool				map_free(char **map);
+void				map_render(t_game *game);
 bool				map_contain_the_coordinate(float x, float y, t_map map);
 void				textures_free(t_game *game);
 bool				set_conf_items(t_game *game, const char **splits);
@@ -185,6 +205,7 @@ bool				register_hooks(t_game *game);
 bool				player_init(t_game *game);
 void				player_move(t_game *game);
 bool				frame_init(t_game *game);
+void				player_render(t_game *game);
 void				image_put_pixel_color(t_img *img,
 											int x, int y, t_color color);
 void				color_change_intensity(t_color *color, float change_rate);
@@ -196,7 +217,10 @@ void				ray_has_horz_wall_interception(t_ray *ray, t_player player,
 void				ray_has_vert_wall_interception(t_ray *ray, t_player player,
 									t_map map, float ray_angle);
 void				ray_facing_direction(t_ray *ray, float ray_angle);
+void				ray_render(t_game *game);
 void				ray_free(t_game *game);
+void				draw_line(t_img *img, t_line line);
+void				draw_rect(t_img *img, t_rect rect);
 void				normalize_angle(float *angle);
 float				distance_between_points(float x1, float y1,
 											float x2, float y2);

@@ -1,22 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   player_init.c                                      :+:      :+:    :+:   */
+/*   player_render.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yoguchi <yoguchi@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/12/13 12:20:55 by yoguchi           #+#    #+#             */
-/*   Updated: 2020/12/24 02:18:58 by yoguchi          ###   ########.fr       */
+/*   Created: 2020/12/24 01:40:33 by yoguchi           #+#    #+#             */
+/*   Updated: 2020/12/24 01:45:41 by yoguchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
-bool player_init(t_game *game)
+void		player_render(t_game *game)
 {
-	game->player.move_direction = 0;
-	game->player.turn_direction = 0;
-	game->player.move_speed = 0.5;
-	game->player.turn_speed = 45 * (PI / 180);
-	return (true);
+	t_rect	rect;
+
+	rect.x0 = game->player.x * MINIMAP_SCALE_FACTOR;
+	rect.y0 = game->player.y * MINIMAP_SCALE_FACTOR;
+	rect.width = 10 * MINIMAP_SCALE_FACTOR;
+	rect.height = 10 * MINIMAP_SCALE_FACTOR;
+	rect.color = RED;
+	draw_rect(&(game->frame), rect);
+	return ;
 }

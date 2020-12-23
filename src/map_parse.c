@@ -6,7 +6,7 @@
 /*   By: yoguchi <yoguchi@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/13 23:05:58 by yoguchi           #+#    #+#             */
-/*   Updated: 2020/12/20 02:14:22 by yoguchi          ###   ########.fr       */
+/*   Updated: 2020/12/24 02:16:59 by yoguchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,10 +89,10 @@ static bool		inspect_new_line(t_game *game, char *line)
 		if (ft_strchr(valid_chars, line[col]) == NULL)
 			return (put_errors(ERR_INVALID_MAP_INPUT, "inspect_new_line"));
 		dir = -1;
-		(line[col] == 'E') ? dir = PI * (0 / 2) : dir;
-		(line[col] == 'S') ? dir = PI * (1 / 2) : dir;
-		(line[col] == 'W') ? dir = PI * (2 / 2) : dir;
-		(line[col] == 'N') ? dir = PI * (3 / 2) : dir;
+		(line[col] == 'E') ? dir = PI * 0 / 2 : dir;
+		(line[col] == 'S') ? dir = PI * 1 / 2 : dir;
+		(line[col] == 'W') ? dir = PI * 2 / 2 : dir;
+		(line[col] == 'N') ? dir = PI * 3 / 2 : dir;
 		if (dir != -1.0)
 		{
 			ret = set_player_position(game, col, dir);
