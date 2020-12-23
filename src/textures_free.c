@@ -3,55 +3,40 @@
 /*                                                        :::      ::::::::   */
 /*   textures_free.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoguchi <yoguchi@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: yoguchi <yoguchi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/19 23:44:05 by yoguchi           #+#    #+#             */
-/*   Updated: 2020/12/20 00:33:38 by yoguchi          ###   ########.fr       */
+/*   Updated: 2020/12/23 17:11:51 by yoguchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
-void free_each_tex(t_img *tex)
-{
-	if (tex->data != NULL)
-	{
-		free(tex->data);
-		tex->data = NULL;
-	}
-	return ;
-}
-
 void	textures_free(t_game *game)
 {
-	if (game->texture.wall_no.data != NULL)
+	if (game->texture.wall_no.ptr != NULL)
 	{
-		printf("noth: %p\n", game->texture.wall_no.data);
-		free_each_tex(&(game->texture.wall_no));
-		game->texture.wall_no.data = NULL;
+		mlx_destroy_image(game->mlx.ptr, game->texture.wall_no.ptr);
+		game->texture.wall_no.ptr = NULL;
 	}
-	if (game->texture.wall_so.data != NULL)
+	if (game->texture.wall_so.ptr != NULL)
 	{
-		printf("south: %p\n", game->texture.wall_so.data);
-		free_each_tex(&(game->texture.wall_so));
-		game->texture.wall_so.data = NULL;
+		mlx_destroy_image(game->mlx.ptr, game->texture.wall_so.ptr);
+		game->texture.wall_so.ptr = NULL;
 	}
-	if (game->texture.wall_we.data != NULL)
+	if (game->texture.wall_we.ptr != NULL)
 	{
-		printf("west: %p\n", game->texture.wall_we.data);
-		free_each_tex(&(game->texture.wall_we));
-		game->texture.wall_we.data = NULL;
+		mlx_destroy_image(game->mlx.ptr, game->texture.wall_we.ptr);
+		game->texture.wall_we.ptr = NULL;
 	}
-	if (game->texture.wall_ea.data != NULL)
+	if (game->texture.wall_ea.ptr != NULL)
 	{
-		printf("east: %p\n", game->texture.wall_ea.data);
-		free_each_tex(&(game->texture.wall_ea));
-		game->texture.wall_ea.data = NULL;
+		mlx_destroy_image(game->mlx.ptr, game->texture.wall_ea.ptr);
+		game->texture.wall_ea.ptr = NULL;
 	}
-	if (game->texture.sprite.data != NULL)
+	if (game->texture.sprite.ptr != NULL)
 	{
-		printf("sprite: %p\n", game->texture.sprite.data);
-		free_each_tex(&(game->texture.sprite));
-		game->texture.sprite.data = NULL;
+		mlx_destroy_image(game->mlx.ptr, game->texture.sprite.ptr);
+		game->texture.sprite.ptr = NULL;
 	}
 }

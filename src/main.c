@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoguchi <yoguchi@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: yoguchi <yoguchi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/13 04:06:43 by yoguchi           #+#    #+#             */
-/*   Updated: 2020/12/23 04:15:03 by yoguchi          ###   ########.fr       */
+/*   Updated: 2020/12/23 12:43:34 by yoguchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,13 +107,25 @@ void show_all_data(t_game *game)
 
 	printf ("\n");
 
-	printf("rays.ray\n");
-	i = 0;
-	while (i < game->rays.num)
-	{
-		printf(" - ray[%d]->angle(%p): %f\n", i, &(game->rays.ray[i]->angle), game->rays.ray[i]->angle);
-		i++;
-	}
+	// printf("rays.ray\n");
+	// i = 0;
+	// while (i < game->rays.num)
+	// {
+	// 	printf(" - ray[%d]->angle(%p): %f\n", i, &(game->rays.ray[i]->angle), game->rays.ray[i]->angle);
+	// 	i++;
+	// }
+	// printf("\n");
+
+	printf("frame\n");
+	printf(" - ptr: %p\n", game->frame.ptr);
+	printf(" - data: %p\n", game->frame.data);
+	printf(" - data[0]: %d\n", game->frame.data[0]);
+	printf(" - width: %d\n", game->frame.width);
+	printf(" - height: %d\n", game->frame.height);
+	printf(" - bpp: %d\n", game->frame.bpp);
+	printf(" - size_line: %d\n", game->frame.size_line);
+	printf(" - endian: %d\n", game->frame.endian);
+
 	printf("\n");
 
 	printf("all game data printed.\n");
@@ -131,9 +143,7 @@ static bool setup(t_game *game)
 	mlx_do_key_autorepeaton(game->mlx.ptr);
 	mlx_do_sync(game->mlx.ptr);
 	register_hooks(game);
-	
 	show_all_data(game);
-
 	return (true);
 }
 

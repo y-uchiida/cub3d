@@ -5,8 +5,8 @@ WE ./img/tex_west.xpm
 EA ./img/tex_east.xpm
 
 S ./img/tex_sprite.xpm
-F 99,99,99
-C 148,148,148
+F 255,0,0
+C 0,0,255
 
         1111111111111111111111111
         1000000000110000000000001

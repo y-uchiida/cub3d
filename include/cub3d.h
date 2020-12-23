@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoguchi <yoguchi@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: yoguchi <yoguchi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/13 15:59:58 by yoguchi           #+#    #+#             */
-/*   Updated: 2020/12/23 04:40:01 by yoguchi          ###   ########.fr       */
+/*   Updated: 2020/12/23 11:42:38 by yoguchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,7 +155,7 @@ typedef struct		s_game
 	t_texture		texture;
 	t_player		player;
 	t_rays			rays;
-	t_img			*frame;
+	t_img			frame;
 }					t_game;
 
 typedef struct 		s_projection

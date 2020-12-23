@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   import_xpm_file.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoguchi <yoguchi@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: yoguchi <yoguchi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 21:17:43 by yoguchi           #+#    #+#             */
-/*   Updated: 2020/12/20 00:29:09 by yoguchi          ###   ########.fr       */
+/*   Updated: 2020/12/23 17:03:48 by yoguchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,7 @@ bool		import_xpm_file(t_game *game, t_img *tx, const char *file_path)
 		mlx_destroy_image(game->mlx.ptr, img_ptr);
 		put_errors(ERR_XMPDATA_GET_FAILED, "import_xpm_file");
 	}
-	if ((tx->data = ft_strdup(data_ptr)) == NULL)
-	{
-		mlx_destroy_image(game->mlx.ptr, img_ptr);
-		return (put_errors(ERR_MALLOC_FAILED, "import_xpm_file"));
-	}
-	mlx_destroy_image(game->mlx.ptr, img_ptr);
+	tx->ptr = img_ptr;
+	tx->data = data_ptr;
 	return (true);
 }

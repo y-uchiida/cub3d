@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render_fov.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoguchi <yoguchi@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: yoguchi <yoguchi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/20 17:54:10 by yoguchi           #+#    #+#             */
-/*   Updated: 2020/12/23 04:55:00 by yoguchi          ###   ########.fr       */
+/*   Updated: 2020/12/23 17:21:44 by yoguchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,7 @@ static void			set_tex_color(t_game *game, t_projection *prj,
 {
 	t_img			*frame;
 
-	frame = game->frame;
+	frame = &(game->frame);
 	if (y < prj->wall_top_px)
 		image_put_pixel_color(frame, x, y, game->map.ceil_color);
 	else if (prj->wall_top_px <= y && y < prj->wall_bottom_px)
@@ -123,11 +123,23 @@ static void			set_tex_color(t_game *game, t_projection *prj,
 										- (prj->wall_strip_height / 2));
 		prj->tex_offset_y = (int)(prj->distance_from_top
 				* ((float)prj->tex->height / prj->wall_strip_height));
-		prj->texture_px_color = prj->tex->data[
-			(prj->tex->width * prj->tex_offset_y) * prj->tex_offset_x];
+
+		printf("tex_offset_x: %d\n", prj->tex_offset_x);
+		printf("tex_offset_y: %d\n", prj->tex_offset_y);
+
+		// /* test: 黒で動作確認 */
+		// prj->texture_px_color = create_trgb(0, 0 , 0, 0);
+
+		// prj->texture_px_color = prj->tex->data[
+		// 	(prj->tex->width * prj->tex_offset_y) * prj->tex_offset_x];
+
+		prj->texture_px_color = prj->tex->data[150 * 300 + 150];
+
 		if (game->rays.ray[x]->wall_hit_vertical)
 			color_change_intensity(&(prj->texture_px_color), 0.65);
-		image_put_pixel_color(frame, x, y, prj->texture_px_color);
+		// image_put_pixel_color(frame, x, y, prj->texture_px_color);
+
+		mlx_put_image_to_window(game->mlx.ptr, game->mlx.window.ptr, game->texture.sprite.ptr, 10, 10);
 	}
 	else
 		image_put_pixel_color(frame, x, y, game->map.floor_color);
@@ -151,6 +163,8 @@ void				render_fov(t_game *game)
 		}
 		x++;
 	}
+	mlx_put_image_to_window(game->mlx.ptr, game->mlx.window.ptr,
+				game->frame.ptr, 0, 0);
 	return ;
 
 	// 	// int x;
