@@ -6,7 +6,7 @@
 /*   By: yoguchi <yoguchi@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/13 14:38:59 by yoguchi           #+#    #+#             */
-/*   Updated: 2020/12/20 19:18:22 by yoguchi          ###   ########.fr       */
+/*   Updated: 2020/12/24 03:36:00 by yoguchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,23 +16,23 @@ static void		player_new_position(t_player *p, float *new_x, float *new_y)
 {
 	if (p->move_direction == 4)
 	{
-		*new_x = p->x + cos(p->rotation_angle) * p->move_speed;
-		*new_y = p->y + sin(p->rotation_angle) * p->move_speed;
+		*new_x = p->x + (cos(p->rotation_angle) * p->move_speed);
+		*new_y = p->y + (sin(p->rotation_angle) * p->move_speed);
 	}
 	else if (p->move_direction == 2)
 	{
-		*new_x = p->x - cos(p->rotation_angle) * p->move_speed;
-		*new_y = p->y - sin(p->rotation_angle) * p->move_speed;
+		*new_x = p->x - (cos(p->rotation_angle) * p->move_speed);
+		*new_y = p->y - (sin(p->rotation_angle) * p->move_speed);
 	}
 	else if (p->move_direction == 1)
 	{
-		*new_x = p->x + cos(p->rotation_angle) * p->move_speed;
-		*new_y = p->y - sin(p->rotation_angle) * p->move_speed;
+		*new_x = p->x + (cos(p->rotation_angle) * p->move_speed);
+		*new_y = p->y - (sin(p->rotation_angle) * p->move_speed);
 	}
 	else if (p->move_direction == 3)
 	{
-		*new_x = p->x - cos(p->rotation_angle) * p->move_speed;
-		*new_y = p->y + sin(p->rotation_angle) * p->move_speed;
+		*new_x = p->x - (cos(p->rotation_angle) * p->move_speed);
+		*new_y = p->y + (sin(p->rotation_angle) * p->move_speed);
 	}
 }
 
