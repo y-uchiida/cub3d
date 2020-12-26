@@ -6,7 +6,7 @@
 #    By: yoguchi <yoguchi@student.42tokyo.jp>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/12/13 04:07:40 by yoguchi           #+#    #+#              #
-#    Updated: 2020/12/27 03:07:09 by yoguchi          ###   ########.fr        #
+#    Updated: 2020/12/27 04:07:01 by yoguchi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,6 +24,7 @@ SRCS = \
  map_free\
  map_render\
  map_contain_the_coordinate\
+ map_closed_check\
  textures_free\
  set_conf_items\
  register_hooks\

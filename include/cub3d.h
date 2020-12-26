@@ -6,7 +6,7 @@
 /*   By: yoguchi <yoguchi@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/13 15:59:58 by yoguchi           #+#    #+#             */
-/*   Updated: 2020/12/27 03:07:28 by yoguchi          ###   ########.fr       */
+/*   Updated: 2020/12/27 04:06:04 by yoguchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -216,6 +216,7 @@ bool				map_parse(t_game *game, char *line);
 bool				map_free(char **map);
 void				map_render(t_game *game);
 bool				map_contain_the_coordinate(float x, float y, t_map map);
+bool				map_closed_check(t_game *game);
 void				textures_free(t_game *game);
 bool				set_conf_items(t_game *game, const char **splits);
 bool				register_hooks(t_game *game);

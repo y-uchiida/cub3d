@@ -6,7 +6,7 @@
 /*   By: yoguchi <yoguchi@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/13 14:33:53 by yoguchi           #+#    #+#             */
-/*   Updated: 2020/12/27 03:13:37 by yoguchi          ###   ########.fr       */
+/*   Updated: 2020/12/27 05:34:30 by yoguchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,9 @@ static bool	game_free(t_game *game)
 	frame_free(game);
 	textures_free(game);
 	sprites_free(game);
-	mlx_destroy_window(game->mlx.ptr, game->mlx.window.ptr);
+	if (game->mlx.window.ptr != NULL)
+		mlx_destroy_window(game->mlx.ptr, game->mlx.window.ptr);
+	if (game->mlx.ptr != NULL)
 	mlx_destroy_display(game->mlx.ptr);
 	return (true);
 }
@@ -29,9 +31,7 @@ static bool	game_free(t_game *game)
 void		game_exit(t_game *game)
 {
 	game_free(game);
-	
 	show_all_data(game);
-
 	exit(0);
 	return ;
 }
