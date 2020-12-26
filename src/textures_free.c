@@ -3,40 +3,35 @@
 /*                                                        :::      ::::::::   */
 /*   textures_free.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoguchi <yoguchi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yoguchi <yoguchi@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/19 23:44:05 by yoguchi           #+#    #+#             */
-/*   Updated: 2020/12/23 17:11:51 by yoguchi          ###   ########.fr       */
+/*   Updated: 2020/12/27 03:03:53 by yoguchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
-void	textures_free(t_game *game)
+static void	tex_free(t_game *game, t_img *tex)
+{
+	if (tex->ptr != NULL)
+	{
+		mlx_destroy_image(game->mlx.ptr, tex->ptr);
+		tex->ptr = NULL;
+		tex->data = NULL;
+	}
+}
+
+void		textures_free(t_game *game)
 {
 	if (game->texture.wall_no.ptr != NULL)
-	{
-		mlx_destroy_image(game->mlx.ptr, game->texture.wall_no.ptr);
-		game->texture.wall_no.ptr = NULL;
-	}
+		tex_free(game, &(game->texture.wall_no));
 	if (game->texture.wall_so.ptr != NULL)
-	{
-		mlx_destroy_image(game->mlx.ptr, game->texture.wall_so.ptr);
-		game->texture.wall_so.ptr = NULL;
-	}
+		tex_free(game, &(game->texture.wall_so));
 	if (game->texture.wall_we.ptr != NULL)
-	{
-		mlx_destroy_image(game->mlx.ptr, game->texture.wall_we.ptr);
-		game->texture.wall_we.ptr = NULL;
-	}
+		tex_free(game, &(game->texture.wall_we));
 	if (game->texture.wall_ea.ptr != NULL)
-	{
-		mlx_destroy_image(game->mlx.ptr, game->texture.wall_ea.ptr);
-		game->texture.wall_ea.ptr = NULL;
-	}
+		tex_free(game, &(game->texture.wall_ea));
 	if (game->texture.sprite.ptr != NULL)
-	{
-		mlx_destroy_image(game->mlx.ptr, game->texture.sprite.ptr);
-		game->texture.sprite.ptr = NULL;
-	}
+		tex_free(game, &(game->texture.sprite));
 }

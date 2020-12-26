@@ -6,7 +6,7 @@
 /*   By: yoguchi <yoguchi@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/20 05:08:58 by yoguchi           #+#    #+#             */
-/*   Updated: 2020/12/21 21:46:48 by yoguchi          ###   ########.fr       */
+/*   Updated: 2020/12/26 01:34:10 by yoguchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static void	set_vert_wall_interseption(t_ray *ray, t_map map,
 	float	next[2];
 	float	check[2];
 
-	next[TABINDEX_Y] = intercept[TABINDEX_X];
+	next[TABINDEX_X] = intercept[TABINDEX_X];
 	next[TABINDEX_Y] = intercept[TABINDEX_Y];
 	while (map_contain_the_coordinate(next[TABINDEX_X], next[TABINDEX_Y], map))
 	{
@@ -38,7 +38,7 @@ static void	set_vert_wall_interseption(t_ray *ray, t_map map,
 		{
 			next[TABINDEX_X] += step[TABINDEX_X];
 			next[TABINDEX_Y] += step[TABINDEX_Y];
-		}		
+		}
 	}
 }
 
@@ -50,15 +50,16 @@ void		ray_has_vert_wall_interception(t_ray *ray, t_player player,
 
 	intercept[TABINDEX_X] = floor(player.x / TILE_SIZE) * TILE_SIZE;
 	if (ray->is_facing_right)
-		intercept[TABINDEX_X] += TILE_SIZE; 
+		intercept[TABINDEX_X] += TILE_SIZE;
 	intercept[TABINDEX_Y] = player.y + ((intercept[TABINDEX_X] - player.x)
 															* tan(ray_angle));
-	step[TABINDEX_X] = (ray->is_facing_right) ? TILE_SIZE : TILE_SIZE;
+	step[TABINDEX_X] = (ray->is_facing_right) ? TILE_SIZE : -TILE_SIZE;
 	step[TABINDEX_Y] = TILE_SIZE * tan(ray_angle);
 	if (ray->is_facing_down && step[TABINDEX_Y] < 0)
-		step[TABINDEX_Y] = step[TABINDEX_Y];
+		step[TABINDEX_Y] = -step[TABINDEX_Y];
 	else if (!(ray->is_facing_down) && step[TABINDEX_Y] > 0)
 		step[TABINDEX_Y] = -step[TABINDEX_Y];
+	ray->has_vert_interception = false;
 	set_vert_wall_interseption(ray, map, intercept, step);
 	if (ray->has_vert_interception == true)
 		ray->vert_wall_dist = distance_between_points(
@@ -88,7 +89,7 @@ void		ray_has_vert_wall_interception(t_ray *ray, t_player player,
 // // 	xintercept += TILE_SIZE;
 // // }
 // 	if (ray[strip_id].is_facing_right)
-// 		intercept[TABINDEX_X] += TILE_SIZE; 
+// 		intercept[TABINDEX_X] += TILE_SIZE;
 
 // // /* 同じく、最も近い縦罫線との交点のy座標を取得する */
 // // yintercept = player.y + ((xintercept - player.x) * tan(rayAngle));
@@ -130,7 +131,7 @@ void		ray_has_vert_wall_interception(t_ray *ray, t_player player,
 // 			check[TABINDEX_X] = next[TABINDEX_X];
 // 		else
 // 			check[TABINDEX_X] = next[TABINDEX_X] -1;
-		
+
 // 	// 	if (is_wall(x_toCheck, y_toCheck)){ /* 壁と衝突する交点が見つかったら、x, yの座標を保持してループを抜ける */
 // 		if (map_has_wall_at(chechk[TABINDEX_X], chechk[TABINDEX_Y]))
 // 		{
@@ -151,9 +152,9 @@ void		ray_has_vert_wall_interception(t_ray *ray, t_player player,
 // 			next[TABINDEX_X] += step[TABINDEX_X];
 // 			// 	nextVertTouchY += ystep;
 // 			next[TABINDEX_Y] += step[TABINDEX_Y];
-// 	//   }	
-// 		}		
+// 	//   }
+// 		}
 // 	}
 // // }
-  
+
 // }

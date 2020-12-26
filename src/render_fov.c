@@ -6,7 +6,7 @@
 /*   By: yoguchi <yoguchi@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/20 17:54:10 by yoguchi           #+#    #+#             */
-/*   Updated: 2020/12/24 01:35:31 by yoguchi          ###   ########.fr       */
+/*   Updated: 2020/12/26 19:53:02 by yoguchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static t_img		*get_projection_tex(bool down, 
 						bool right, bool hit_vert, t_texture *tex)
 {
-	if (down == true && right == true && hit_vert == false)
+	if (down == true && right == true && hit_vert == true)
 		return (&(tex->wall_ea));
 	else if (down == true && right == true && hit_vert == false)
 		return (&(tex->wall_so));
@@ -30,20 +30,6 @@ static t_img		*get_projection_tex(bool down,
 	else if (down == false && right == false && hit_vert == true)
 		return (&(tex->wall_we));
 	return ((&tex->wall_no));
-}
-
-static void			get_texture_pixsel_color(t_game *game, int x,
-													t_projection *prj)
-{
-	t_ray			*ray;
-	float			propotion;
-
-	ray = game->rays.ray[x];
-	if (ray->wall_hit_vertical)
-		propotion = ((int)ray->wall_intercept_y % TILE_SIZE) / TILE_SIZE;
-	else
-		propotion = ((int)ray->wall_intercept_x % TILE_SIZE) / TILE_SIZE;
-	prj->tex_offset_x = floor(prj->tex->width * propotion);
 }
 
 static void			set_projection_variables(t_game *game, int x,
@@ -68,49 +54,31 @@ static void			set_projection_variables(t_game *game, int x,
 		prj->wall_bottom_px = window->height;
 	prj->tex = get_projection_tex(ray->is_facing_down,
 		ray->is_facing_right, ray->wall_hit_vertical, &(game->texture));
-	get_texture_pixsel_color(game, x, prj);
-
-	// window = &(game->mlx.window);
-	// player = &(game->player);
-	// ray = game->rays.ray[x];
-	// dist_prj_plane =  ((window->width / 2) / tan(FOV_ANGLE / 2));
-	// // 	perpDistance = rays[x].distance * cos(rays[x].rayAngle - player.rotationAngle); /* 壁のゆがみを補正するため、画面平面と垂直な直線の長さに直す */
-	// prj->perp_dist = ray->dist * cos(ray->angle - player->rotation_angle);
-	// // 	projectedWallHeight = (TILE_SIZE / perpDistance) * DIST_PROJ_PLANE; /* 描画する壁の高さ */
-	// prj->wall_height = (TILE_SIZE / prj->perp_dist) * dist_prj_plane;
-	// // 	wallStripHeight = (int)projectedWallHeight;
-	// prj->wall_strip_height = (int)prj->wall_height;
-	// // 	wallTopPixel = (WINDOW_HEIGHT / 2) - (wallStripHeight / 2); /* 画面の高さの中心から、描画する壁の高さの半分だけ上にずらすと、壁の一番上の位置のピクセルがわかる */
-	// prj->wall_top_px = (window->height / 2) - (prj->wall_strip_height / 2);
-	// // 	wallTopPixel = (wallTopPixel < 0) ? 0 : wallTopPixel; /* 画面領域からはみ出す場合は0に直す */
-	// prj->wall_top_px = (prj->wall_top_px < 0) ? 0 : prj->wall_top_px;
-	// // 	wallBottomPixel = (WINDOW_HEIGHT / 2) + (wallStripHeight / 2);
-	// prj->wall_bottom_px = (window->height / 2) + (prj->wall_strip_height / 2);
-	// // 	wallBottomPixel = (wallBottomPixel > WINDOW_HEIGHT) ? WINDOW_HEIGHT : wallBottomPixel; /* 画面領域からはみ出す場合は0に直す */
-	// if (prj->wall_bottom_px > window->height)
-	// 	prj->wall_bottom_px = window->height;
-	
-	// // 	/* ぶつかった壁のインデックスの値を見て、参照するテクスチャを決定する */
-	// // 	texNum = rays[x].wallHitContent - 1;
-    // //     texture_width = wallTextures[texNum].width;
-    // //     texture_height = wallTextures[texNum].height;
-	// prj->tex_data = get_projection_tex_data(ray->is_facing_down,
-	// 	ray->is_facing_right, ray->wall_hit_vertical, &(game->texture));
-
-	// // 	/* 今回のrayにおけるテクスチャの参照位置を、壁との交点座標から得る */
-	// // 	if (rays[x].wasHitVertical)
-	// // 		textureOffsetX = (int)rays[x].wallHitY % TILE_SIZE; /* TILE_SIZEとTEXTURE_HEIGHTは同じ値で設定しているので、余りを取るとテクスチャ1枚分の座標位置がわかる */
-	// if (ray->wall_hit_vertical)
-	// 	prj->texture_offset_x = (int)ray->wall_intercept_y % TILE_SIZE;
-	// // 	else
-	// // 		textureOffsetX = (int)rays[x].wallHitX % TILE_SIZE;
-	// else
-	// 	prj->texture_offset_x = (int)ray->wall_intercept_x % TILE_SIZE;
-
 }
 
-static void			set_tex_color(t_game *game, t_projection *prj,
-														int x, int y)
+static void			get_texture_pixel_color(t_game *game, int x, int y,
+													t_projection *prj)
+{
+	t_ray			*ray;
+	float			propotion_x;
+	float			propotion_y;
+
+	ray = game->rays.ray[x];
+	prj->distance_from_top = (game->mlx.window.height / 2)
+							- (prj->wall_strip_height / 2);
+	propotion_y = (y - prj->distance_from_top) / (float)prj->wall_strip_height;
+	prj->tex_offset_y = (int)(prj->tex->height * propotion_y);
+	if (ray->wall_hit_vertical)
+		propotion_x = (fmodf(ray->wall_intercept_y, TILE_SIZE) / TILE_SIZE);
+	else
+		propotion_x = (fmodf(ray->wall_intercept_x, TILE_SIZE) / TILE_SIZE);
+	prj->tex_offset_x = (int)(prj->tex->width * propotion_x);
+	prj->texture_px_color =
+		image_get_pixel_color(prj->tex_offset_x, prj->tex_offset_y, prj->tex);
+}
+
+static void			set_tex_color(t_game *game, int x, int y,
+												t_projection *prj)
 {
 	t_img			*frame;
 
@@ -119,31 +87,15 @@ static void			set_tex_color(t_game *game, t_projection *prj,
 		image_put_pixel_color(frame, x, y, game->map.ceil_color);
 	else if (prj->wall_top_px <= y && y < prj->wall_bottom_px)
 	{
-		prj->distance_from_top = y - ((game->mlx.window.height / 2)
-										- (prj->wall_strip_height / 2));
-		prj->tex_offset_y = (int)(prj->distance_from_top
-				* ((float)prj->tex->height / prj->wall_strip_height));
-
-		// printf("tex_offset_x: %d\n", prj->tex_offset_x);
-		// printf("tex_offset_y: %d\n", prj->tex_offset_y);
-
-		// /* test: 黒で動作確認 */
-		// prj->texture_px_color = create_trgb(0, 0 , 0, 0);
-
-		// prj->texture_px_color = prj->tex->data[
-			// (prj->tex->width * prj->tex_offset_y) * prj->tex_offset_x];
-
-		prj->texture_px_color = prj->tex->data[150 * 300 + 150];
-
+		get_texture_pixel_color(game, x, y, prj);
 		if (game->rays.ray[x]->wall_hit_vertical)
 			color_change_intensity(&(prj->texture_px_color), 0.65);
 		image_put_pixel_color(frame, x, y, prj->texture_px_color);
-
-		// mlx_put_image_to_window(game->mlx.ptr, game->mlx.window.ptr, game->texture.sprite.ptr, 10, 10);
 	}
 	else
 		image_put_pixel_color(frame, x, y, game->map.floor_color);
 }
+
 
 void				render_fov(t_game *game)
 {
@@ -158,7 +110,7 @@ void				render_fov(t_game *game)
 		y = 0;
 		while (y < game->mlx.window.height)
 		{
-			set_tex_color(game, &prj,  x, y);
+			set_tex_color(game, x, y, &prj);
 			y++;
 		}
 		x++;

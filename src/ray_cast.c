@@ -6,7 +6,7 @@
 /*   By: yoguchi <yoguchi@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/20 02:52:03 by yoguchi           #+#    #+#             */
-/*   Updated: 2020/12/21 21:45:21 by yoguchi          ###   ########.fr       */
+/*   Updated: 2020/12/26 01:33:52 by yoguchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ static void	compare_horz_vert_interception(t_ray *ray)
 
 void		ray_cast(t_game *game, float ray_angle, int strip_id)
 {
-	normalize_angle(&ray_angle);
 	game->rays.ray[strip_id]->angle = ray_angle;
 	ray_facing_direction(game->rays.ray[strip_id], ray_angle);
 	ray_has_horz_wall_interception(game->rays.ray[strip_id], game->player,

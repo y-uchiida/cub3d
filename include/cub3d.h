@@ -6,7 +6,7 @@
 /*   By: yoguchi <yoguchi@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/13 15:59:58 by yoguchi           #+#    #+#             */
-/*   Updated: 2020/12/24 02:01:04 by yoguchi          ###   ########.fr       */
+/*   Updated: 2020/12/27 03:07:28 by yoguchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,8 @@
 # define TWO_PI 6.28318530
 # define FOV_ANGLE (60 * (PI / 180))
 
-# define TILE_SIZE 64
-# define MINIMAP_SCALE_FACTOR 0.25
+# define TILE_SIZE 32
+# define MINIMAP_SCALE_FACTOR 0.1
 
 # define TABINDEX_X 0
 # define TABINDEX_Y 1
@@ -144,6 +144,22 @@ typedef struct		s_rays
 	t_ray			**ray;
 }					t_rays;
 
+typedef struct 		s_sprite
+{
+	float			x;
+	float			y;
+	float			dist;
+	float			width;
+	float			height;
+	void			*next;
+}					t_sprite;
+
+typedef struct 		s_sprites
+{
+	int				num;	
+	t_sprite		*sprite;
+}					t_sprites;
+
 /*
  ** contain all structures
 */
@@ -156,6 +172,7 @@ typedef struct		s_game
 	t_player		player;
 	t_rays			rays;
 	t_img			frame;
+	t_sprites		sprites;
 }					t_game;
 
 typedef struct 		s_projection
@@ -205,9 +222,11 @@ bool				register_hooks(t_game *game);
 bool				player_init(t_game *game);
 void				player_move(t_game *game);
 bool				frame_init(t_game *game);
+void				frame_free(t_game *game);
 void				player_render(t_game *game);
 void				image_put_pixel_color(t_img *img,
 											int x, int y, t_color color);
+t_color				image_get_pixel_color(int x, int y, t_img *img);
 void				color_change_intensity(t_color *color, float change_rate);
 bool				ray_init(t_game *game);
 bool				ray_cast_all(t_game *game);
@@ -227,11 +246,16 @@ float				distance_between_points(float x1, float y1,
 int					game_data_update(t_game *game);
 void				game_exit(t_game *game);
 bool				map_has_wall_at(float x, float y, t_map *map);
+bool				sprite_new_item(t_game *game, int x, int y);
+bool				sprites_calc_distance(t_game *game);
+void				sprites_sort(t_game *game);
+void				sprites_free(t_game *game);
 void				render_fov(t_game *game);
 t_color				create_trgb(int t, int r, int g, int b);
 int					get_t(t_color trgb);
 int					get_r(t_color trgb);
 int					get_g(t_color trgb);
 int					get_b(t_color trgb);
+bool				screenshot_save(t_game *game);
 bool				put_errors(char *err, char *func_name);
 #endif

@@ -6,7 +6,7 @@
 /*   By: yoguchi <yoguchi@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/20 05:05:43 by yoguchi           #+#    #+#             */
-/*   Updated: 2020/12/21 21:44:33 by yoguchi          ###   ########.fr       */
+/*   Updated: 2020/12/26 01:31:50 by yoguchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,7 @@ static void	set_horz_wall_interseption(t_ray *ray, t_map map,
 	while (map_contain_the_coordinate(next[TABINDEX_X], next[TABINDEX_Y], map))
 	{
 		check[TABINDEX_X] = next[TABINDEX_X];
-		if (ray->is_facing_down)
-			check[TABINDEX_Y] = next[TABINDEX_Y];
-		else
-			check[TABINDEX_Y] = next[TABINDEX_Y] - 1;
+		check[TABINDEX_Y] = next[TABINDEX_Y] + ((ray->is_facing_down) ? 0 : -1);
 		if (map_has_wall_at(check[TABINDEX_X], check[TABINDEX_Y], &map))
 		{
 			ray->has_horz_interception = true;
@@ -57,8 +54,9 @@ void		ray_has_horz_wall_interception(t_ray *ray, t_player player,
 	step[TABINDEX_X] = TILE_SIZE / tan(ray_angle);
 	if (ray->is_facing_right && step[TABINDEX_X] < 0)
 		step[TABINDEX_X] = -step[TABINDEX_X];
-	else if (!(ray->is_facing_right) && step[TABINDEX_X] < 0)
+	else if (!(ray->is_facing_right) && step[TABINDEX_X] > 0)
 		step[TABINDEX_X] = -step[TABINDEX_X];
+	ray->has_horz_interception = false;
 	set_horz_wall_interseption(ray, map, intercept, step);
 	if (ray->has_horz_interception == true)
 		ray->horz_wall_dist = distance_between_points(

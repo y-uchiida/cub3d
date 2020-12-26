@@ -6,14 +6,14 @@
 #    By: yoguchi <yoguchi@student.42tokyo.jp>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/12/13 04:07:40 by yoguchi           #+#    #+#              #
-#    Updated: 2020/12/24 01:53:27 by yoguchi          ###   ########.fr        #
+#    Updated: 2020/12/27 03:07:09 by yoguchi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = cub3D
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror
-LIBS = -L./lib -lft -lmlx -lXext -lX11 -lm -lz
+LIBS = -L./lib -lft -lmlx -lXext -lX11 -lm
 
 SRCS = \
  main\
@@ -31,7 +31,9 @@ SRCS = \
  player_move\
  player_render\
  frame_init\
+ frame_free\
  image_put_pixel_color\
+ image_get_pixel_color\
  color_change_intensity\
  ray_init\
  ray_cast_all\
@@ -44,11 +46,16 @@ SRCS = \
  normalize_angle\
  distance_between_points\
  graphics\
+ sprite_new_item\
+ sprites_calc_distance\
+ sprites_sort\
+ sprites_free\
  game_data_update\
  game_exit\
  map_has_wall_at\
  render_fov\
  manipulate_trgb\
+ screenshot_save\
  put_errors\
 
 SRCS_PATH = $(addsuffix .c, $(addprefix src/, $(SRCS)))

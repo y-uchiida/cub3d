@@ -1,22 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   player_init.c                                      :+:      :+:    :+:   */
+/*   sprites_sort.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yoguchi <yoguchi@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/12/13 12:20:55 by yoguchi           #+#    #+#             */
-/*   Updated: 2020/12/26 01:37:08 by yoguchi          ###   ########.fr       */
+/*   Created: 2020/12/26 22:08:01 by yoguchi           #+#    #+#             */
+/*   Updated: 2020/12/26 22:38:46 by yoguchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
-bool player_init(t_game *game)
+void			sprites_sort(t_game *game)
 {
-	game->player.move_direction = 0;
-	game->player.turn_direction = 0;
-	game->player.move_speed = 1;
-	game->player.turn_speed = (PI / 180);
-	return (true);
+	t_sprite	*spr;
+
+	spr = game->sprites.sprite;
+
+	if (spr) {}
+
+	// while (spr != NULL)
+	// {
+	// 	sp
+	// }
+
+	return ;
 }

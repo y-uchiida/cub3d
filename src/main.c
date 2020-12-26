@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoguchi <yoguchi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yoguchi <yoguchi@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/13 04:06:43 by yoguchi           #+#    #+#             */
-/*   Updated: 2020/12/23 12:43:34 by yoguchi          ###   ########.fr       */
+/*   Updated: 2020/12/27 03:15:12 by yoguchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,19 +107,13 @@ void show_all_data(t_game *game)
 
 	printf ("\n");
 
-	// printf("rays.ray\n");
-	// i = 0;
-	// while (i < game->rays.num)
-	// {
-	// 	printf(" - ray[%d]->angle(%p): %f\n", i, &(game->rays.ray[i]->angle), game->rays.ray[i]->angle);
-	// 	i++;
-	// }
-	// printf("\n");
-
 	printf("frame\n");
 	printf(" - ptr: %p\n", game->frame.ptr);
 	printf(" - data: %p\n", game->frame.data);
-	printf(" - data[0]: %d\n", game->frame.data[0]);
+	if (game->frame.data != NULL)
+		printf(" - data[0]: %d\n", game->frame.data[0]);
+	else
+		printf(" - data[0]: no data\n");
 	printf(" - width: %d\n", game->frame.width);
 	printf(" - height: %d\n", game->frame.height);
 	printf(" - bpp: %d\n", game->frame.bpp);
@@ -128,7 +122,24 @@ void show_all_data(t_game *game)
 
 	printf("\n");
 
-	printf("all game data printed.\n");
+	printf("sprites\n");
+	if (game->sprites.num > 0)
+	{
+		t_sprite *ptr;
+		ptr = game->sprites.sprite;
+		while (ptr != NULL)
+		{
+			printf(" - ptr: %p\n", ptr);
+			printf(" - [x, y] = [%f, %f]\n", ptr->x, ptr->y);
+			printf(" - dist: %f\n", ptr->dist);
+			printf("\n");
+			ptr = ptr->next;
+		}
+	}
+	else
+		printf(" - no sprite data.\n\n");
+
+	printf("all game data printed.\n\n");
 
 	return ;
 }
@@ -143,7 +154,10 @@ static bool setup(t_game *game)
 	mlx_do_key_autorepeaton(game->mlx.ptr);
 	mlx_do_sync(game->mlx.ptr);
 	register_hooks(game);
-	show_all_data(game);
+
+
+	// show_all_data(game);
+
 	return (true);
 }
 
@@ -161,6 +175,8 @@ bool		game_init(t_game *game)
 	game->player.y = FLT_MIN;
 	game->player.initial_x = INT_MIN;
 	game->player.initial_y = INT_MIN;
+	game->sprites.num = 0;
+	game->sprites.sprite = NULL;
 	return (true);
 }
 
@@ -176,14 +192,17 @@ int			main(int argc, char *argv[])
 			return (EXIT_FAILURE);
 	}
 	else
-	{
-		put_errors(ERR_NO_ARG, "main");
-		return (EXIT_FAILURE);
-	}
+		return (put_errors(ERR_NO_ARG, "main"));
 	setup(&game);
-	if (argc == 3 && (ft_strncmp(argv[2], "--save", 6) == 0)) /* 画像出力する */
-	{}
-	mlx_loop(game.mlx.ptr);
-
+	if ((argc == 3) && (ft_strncmp(argv[2], "--save", 6) == 0))
+	{
+		if (screenshot_save(&game))
+		{
+			game_exit(&game);
+			return (EXIT_FAILURE);
+		}
+	}
+	else
+		mlx_loop(game.mlx.ptr);
 	return (EXIT_SUCCESS);
 }

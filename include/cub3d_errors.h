@@ -6,7 +6,7 @@
 /*   By: yoguchi <yoguchi@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/13 18:15:27 by yoguchi           #+#    #+#             */
-/*   Updated: 2020/12/23 04:01:50 by yoguchi          ###   ########.fr       */
+/*   Updated: 2020/12/27 01:31:43 by yoguchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,5 +35,8 @@
 # define ERR_INVALID_MAP_INPUT "map in .cub file has invalid character."
 # define ERR_DUPLICATE_MAP_INPUT "map in .cub file has multiple player char."
 # define ERR_MLX_IMAGE_FAILD "create new image data faild."
+# define ERR_CANT_OPEN_BMPFILE "failed create screenshot bmp file."
+# define ERR_FAILED_WRITE_BMP_HEADER "failed write bmp file header."
+# define ERR_WRITE_BMP_COLOR "failed write bmp color."
 
 #endif

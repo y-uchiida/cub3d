@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game_exit.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoguchi <yoguchi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yoguchi <yoguchi@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/13 14:33:53 by yoguchi           #+#    #+#             */
-/*   Updated: 2020/12/23 17:05:49 by yoguchi          ###   ########.fr       */
+/*   Updated: 2020/12/27 03:13:37 by yoguchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,9 @@ static bool	game_free(t_game *game)
 {
 	map_free(game->map.map);
 	game->map.map = NULL;
+	frame_free(game);
 	textures_free(game);
-	mlx_destroy_image(game->mlx.ptr, game->frame.ptr);
+	sprites_free(game);
 	mlx_destroy_window(game->mlx.ptr, game->mlx.window.ptr);
 	mlx_destroy_display(game->mlx.ptr);
 	return (true);

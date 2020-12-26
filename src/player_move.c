@@ -6,53 +6,65 @@
 /*   By: yoguchi <yoguchi@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/13 14:38:59 by yoguchi           #+#    #+#             */
-/*   Updated: 2020/12/24 03:36:00 by yoguchi          ###   ########.fr       */
+/*   Updated: 2020/12/25 13:13:33 by yoguchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
-static void		player_new_position(t_player *p, float *new_x, float *new_y)
+static void		move_strafe(t_player *p, float *new)
+{
+	float		move_x;
+	float		move_y;
+
+	move_x = (cos(p->rotation_angle - (PI / 2)) * p->move_speed);
+	move_y = (sin(p->rotation_angle - (PI / 2)) * p->move_speed);
+
+	if (p->move_direction == 1)
+	{
+		new[TABINDEX_X] = p->x - move_x;
+		new[TABINDEX_Y] = p->y - move_y;
+	}
+	else
+	{
+		new[TABINDEX_X] = p->x + move_x;
+		new[TABINDEX_Y] = p->y + move_y;
+	}
+}
+
+static void		player_new_position(t_player *p, float *new)
 {
 	if (p->move_direction == 4)
 	{
-		*new_x = p->x + (cos(p->rotation_angle) * p->move_speed);
-		*new_y = p->y + (sin(p->rotation_angle) * p->move_speed);
+		new[TABINDEX_X] = p->x + (cos(p->rotation_angle) * p->move_speed);
+		new[TABINDEX_Y] = p->y + (sin(p->rotation_angle) * p->move_speed);
 	}
 	else if (p->move_direction == 2)
 	{
-		*new_x = p->x - (cos(p->rotation_angle) * p->move_speed);
-		*new_y = p->y - (sin(p->rotation_angle) * p->move_speed);
+		new[TABINDEX_X] = p->x - (cos(p->rotation_angle) * p->move_speed);
+		new[TABINDEX_Y] = p->y - (sin(p->rotation_angle) * p->move_speed);
 	}
-	else if (p->move_direction == 1)
-	{
-		*new_x = p->x + (cos(p->rotation_angle) * p->move_speed);
-		*new_y = p->y - (sin(p->rotation_angle) * p->move_speed);
-	}
-	else if (p->move_direction == 3)
-	{
-		*new_x = p->x - (cos(p->rotation_angle) * p->move_speed);
-		*new_y = p->y + (sin(p->rotation_angle) * p->move_speed);
-	}
+	else if (p->move_direction == 1 || p->move_direction == 3)
+		move_strafe(p, new);
 }
 
 void			player_move(t_game *game)
 {
-	float		new_player_x;
-	float		new_player_y;
+	float		new[2];
 	t_player	*p;
 	t_map		*map;
 
 	p = &(game->player);
 	map = &(game->map);
 	p->rotation_angle += p->turn_direction * p->turn_speed;
+	normalize_angle(&(p->rotation_angle));
 	if (p->move_direction != 0)
 	{
-		player_new_position(p, &new_player_x, &new_player_y);
-		if (map_has_wall_at( new_player_x, new_player_y, map) != true)
+		player_new_position(p, new);
+		if (map_has_wall_at( new[TABINDEX_X], new[TABINDEX_Y], map) != true)
 		{
-			p->x = new_player_x;
-			p->y = new_player_y;
+			p->x = new[TABINDEX_X];
+			p->y = new[TABINDEX_Y];
 		}
 	}
 	return ;

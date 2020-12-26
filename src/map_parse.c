@@ -6,7 +6,7 @@
 /*   By: yoguchi <yoguchi@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/13 23:05:58 by yoguchi           #+#    #+#             */
-/*   Updated: 2020/12/24 02:16:59 by yoguchi          ###   ########.fr       */
+/*   Updated: 2020/12/26 22:38:05 by yoguchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,6 @@ static bool		inspect_new_line(t_game *game, char *line)
 {
 	int			col;
 	float		dir;
-	bool		ret;
 	const char	valid_chars[8] = {" 012NSEW"};
 
 	col = -1;
@@ -92,14 +91,16 @@ static bool		inspect_new_line(t_game *game, char *line)
 		(line[col] == 'E') ? dir = PI * 0 / 2 : dir;
 		(line[col] == 'S') ? dir = PI * 1 / 2 : dir;
 		(line[col] == 'W') ? dir = PI * 2 / 2 : dir;
-		(line[col] == 'N') ? dir = PI * 3 / 2 : dir;
+		(line[col] == 'N') ? dir = PI * 3 / 2 : dir;			
 		if (dir != -1.0)
 		{
-			ret = set_player_position(game, col, dir);
-			if (ret == false)
+			if (set_player_position(game, col, dir) == false)
 				return (false);
 			line[col] = '0';
 		}
+		if (line[col] == '2')
+			if ((sprite_new_item(game, col, game->map.rows - 1)) == false)
+				return (false);
 	}
 	return (true);
 }
