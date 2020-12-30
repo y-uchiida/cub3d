@@ -6,7 +6,7 @@
 /*   By: yoguchi <yoguchi@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/13 14:33:53 by yoguchi           #+#    #+#             */
-/*   Updated: 2020/12/30 10:29:09 by yoguchi          ###   ########.fr       */
+/*   Updated: 2020/12/30 11:28:36 by yoguchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ static bool		game_free(t_game *game)
 void			game_exit(t_game *game)
 {
 	game_free(game);
-	show_all_data(game);
 	exit(0);
 	return ;
 }
