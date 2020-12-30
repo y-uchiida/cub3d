@@ -6,13 +6,13 @@
 /*   By: yoguchi <yoguchi@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/20 17:54:10 by yoguchi           #+#    #+#             */
-/*   Updated: 2020/12/29 23:47:01 by yoguchi          ###   ########.fr       */
+/*   Updated: 2020/12/30 10:59:20 by yoguchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
-static t_img		*get_projection_tex(bool down, 
+static t_img		*get_projection_tex(bool down,
 						bool right, bool hit_vert, t_texture *tex)
 {
 	if (down == true && right == true && hit_vert == true)
@@ -86,14 +86,11 @@ static void			set_tex_color(t_game *game, int x, int y,
 	else if (prj->top_px <= y && y < prj->bottom_px)
 	{
 		get_texture_pixel_color(game, x, y, prj);
-		// if (game->rays.ray[x]->wall_hit_vertical)
-		// 	color_change_intensity(&(prj->texture_px_color), 0.65);
 		image_put_pixel_color(frame, x, y, prj->texture_px_color);
 	}
 	else
 		image_put_pixel_color(frame, x, y, game->map.floor_color);
 }
-
 
 void				render_fov(t_game *game)
 {

@@ -6,7 +6,7 @@
 /*   By: yoguchi <yoguchi@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/13 17:27:26 by yoguchi           #+#    #+#             */
-/*   Updated: 2020/12/18 02:17:42 by yoguchi          ###   ########.fr       */
+/*   Updated: 2020/12/30 10:45:29 by yoguchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,5 +23,5 @@ bool		put_errors(char *err, char *func_name)
 	perror(func_name);
 	ft_putstr_fd(TEXT_RESET, 2);
 	ft_putstr_fd("\n", 2);
-	return false;
+	return (false);
 }

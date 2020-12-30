@@ -6,7 +6,7 @@
 /*   By: yoguchi <yoguchi@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/13 14:30:04 by yoguchi           #+#    #+#             */
-/*   Updated: 2020/12/29 08:41:25 by yoguchi          ###   ########.fr       */
+/*   Updated: 2020/12/30 10:49:58 by yoguchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ bool		ray_cast_all(t_game *game)
 
 	ray_angle = game->player.rotation_angle - (game->fov_angle / 2);
 	strip_id = 0;
-	while(strip_id < game->rays.num)
+	while (strip_id < game->rays.num)
 	{
 		normalize_angle(&ray_angle);
 		ray_cast(game, ray_angle, strip_id);

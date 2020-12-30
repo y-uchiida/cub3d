@@ -6,7 +6,7 @@
 /*   By: yoguchi <yoguchi@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/13 23:05:58 by yoguchi           #+#    #+#             */
-/*   Updated: 2020/12/27 06:50:26 by yoguchi          ###   ########.fr       */
+/*   Updated: 2020/12/30 10:40:02 by yoguchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ static bool		inspect_new_line(t_game *game, char *line)
 		(line[col] == 'E') ? dir = PI * 0 / 2 : dir;
 		(line[col] == 'S') ? dir = PI * 1 / 2 : dir;
 		(line[col] == 'W') ? dir = PI * 2 / 2 : dir;
-		(line[col] == 'N') ? dir = PI * 3 / 2 : dir;			
+		(line[col] == 'N') ? dir = PI * 3 / 2 : dir;
 		if (dir != -1.0)
 		{
 			if (set_player_position(game, col, dir) == false)

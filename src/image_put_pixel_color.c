@@ -6,7 +6,7 @@
 /*   By: yoguchi <yoguchi@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/23 04:03:14 by yoguchi           #+#    #+#             */
-/*   Updated: 2020/12/29 14:24:23 by yoguchi          ###   ########.fr       */
+/*   Updated: 2020/12/30 10:31:18 by yoguchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void		image_put_pixel_color(t_img *img, int x, int y, t_color color)
 {
 	char	*dest;
 
-    dest = img->data + (y * img->size_line + x * (img->bpp / 8));
-    *(t_color *)dest = color;
+	dest = img->data + (y * img->size_line + x * (img->bpp / 8));
+	*(t_color *)dest = color;
 	return ;
 }

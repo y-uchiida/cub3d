@@ -6,7 +6,7 @@
 /*   By: yoguchi <yoguchi@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/19 22:32:31 by yoguchi           #+#    #+#             */
-/*   Updated: 2020/12/19 22:34:44 by yoguchi          ###   ########.fr       */
+/*   Updated: 2020/12/30 10:42:49 by yoguchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	normalize_angle(float *angle)
 {
 	*angle = remainder(*angle, TWO_PI);
-	if (*angle < 0) 
+	if (*angle < 0)
 		*angle = TWO_PI + *angle;
 	return ;
 }

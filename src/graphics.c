@@ -6,7 +6,7 @@
 /*   By: yoguchi <yoguchi@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/23 23:42:51 by yoguchi           #+#    #+#             */
-/*   Updated: 2020/12/24 01:56:39 by yoguchi          ###   ########.fr       */
+/*   Updated: 2020/12/30 10:29:47 by yoguchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,10 @@ void		draw_rect(t_img *img, t_rect rect)
 	int		j;
 
 	i = rect.x0;
-	while(i <= (rect.x0 + rect.width))
+	while (i <= (rect.x0 + rect.width))
 	{
 		j = rect.y0;
-		while(j <= (rect.y0 + rect.height))
+		while (j <= (rect.y0 + rect.height))
 		{
 			image_put_pixel_color(img, i, j, rect.color);
 			j++;
@@ -48,7 +48,7 @@ void		draw_line(t_img *img, t_line line)
 	current[TABINDEX_X] = line.x0;
 	current[TABINDEX_Y] = line.y0;
 	i = -1;
-	while(++i < longest_side_len)
+	while (++i < longest_side_len)
 	{
 		image_put_pixel_color(img,
 			round(current[TABINDEX_X]), round(current[TABINDEX_Y]), line.color);

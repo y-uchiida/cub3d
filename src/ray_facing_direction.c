@@ -6,7 +6,7 @@
 /*   By: yoguchi <yoguchi@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/20 03:02:49 by yoguchi           #+#    #+#             */
-/*   Updated: 2020/12/26 01:25:53 by yoguchi          ###   ########.fr       */
+/*   Updated: 2020/12/30 10:50:41 by yoguchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	ray_facing_direction(t_ray *ray, float ray_angle)
 	if (0 < ray_angle && ray_angle < PI)
 		ray->is_facing_down = true;
 	else
-		ray->is_facing_down =  false;
+		ray->is_facing_down = false;
 	if (ray_angle < 0.5 * PI || 1.5 * PI < ray_angle)
 		ray->is_facing_right = true;
 	else

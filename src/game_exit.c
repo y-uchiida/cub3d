@@ -6,13 +6,11 @@
 /*   By: yoguchi <yoguchi@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/13 14:33:53 by yoguchi           #+#    #+#             */
-/*   Updated: 2020/12/30 10:14:55 by yoguchi          ###   ########.fr       */
+/*   Updated: 2020/12/30 10:29:09 by yoguchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
-
-void show_all_data(t_game *game);
 
 static bool		game_free(t_game *game)
 {
@@ -24,7 +22,7 @@ static bool		game_free(t_game *game)
 	if (game->mlx.window.ptr != NULL)
 		mlx_destroy_window(game->mlx.ptr, game->mlx.window.ptr);
 	if (game->mlx.ptr != NULL)
-	mlx_destroy_display(game->mlx.ptr);
+		mlx_destroy_display(game->mlx.ptr);
 	return (true);
 }
 

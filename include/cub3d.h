@@ -6,7 +6,7 @@
 /*   By: yoguchi <yoguchi@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/13 15:59:58 by yoguchi           #+#    #+#             */
-/*   Updated: 2020/12/30 08:41:57 by yoguchi          ###   ########.fr       */
+/*   Updated: 2020/12/30 11:17:16 by yoguchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,7 @@ typedef struct		s_player
 	int				turn_direction;
 }					t_player;
 
-typedef struct 		s_ray
+typedef struct		s_ray
 {
 	float			angle;
 	float			wall_intercept_x;
@@ -151,7 +151,7 @@ typedef struct		s_rays
 	t_ray			**ray;
 }					t_rays;
 
-typedef struct 		s_sprite
+typedef struct		s_sprite
 {
 	int				grid_x;
 	int				grid_y;
@@ -164,9 +164,9 @@ typedef struct 		s_sprite
 	struct s_sprite	*next;
 }					t_sprite;
 
-typedef struct 		s_sprites
+typedef struct		s_sprites
 {
-	int				num;	
+	int				num;
 	t_sprite		*sprite;
 }					t_sprites;
 
@@ -185,12 +185,12 @@ typedef struct		s_game
 	t_sprites		sprites;
 }					t_game;
 
-typedef struct 		s_projection
-{		
+typedef struct		s_projection
+{
 	float			actual_height;
 	float			perp_dist;
 	int				drawing_height;
-	int				drawing_width;	
+	int				drawing_width;
 	int				top_px;
 	int				bottom_px;
 	t_img			*tex;
@@ -217,7 +217,6 @@ typedef struct		s_rect
 	int				height;
 	t_color			color;
 }					t_rect;
-
 
 bool				window_init(t_game *game);
 bool				import_cub_file(t_game *game, char *file_path);

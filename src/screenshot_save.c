@@ -6,14 +6,13 @@
 /*   By: yoguchi <yoguchi@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/27 00:16:46 by yoguchi           #+#    #+#             */
-/*   Updated: 2020/12/27 07:24:26 by yoguchi          ###   ########.fr       */
+/*   Updated: 2020/12/30 11:01:41 by yoguchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
-static void
-	set_int_in_char(unsigned char *start, int value)
+static void				set_int_in_char(unsigned char *start, int value)
 {
 	start[0] = (unsigned char)(value);
 	start[1] = (unsigned char)(value >> 8);
@@ -21,12 +20,11 @@ static void
 	start[3] = (unsigned char)(value >> 24);
 }
 
-static int
-	write_bmp_header(int fd, int file_size, t_game *game)
+static int				write_bmp_header(int fd, int file_size, t_game *game)
 {
-	int				i;
-	int				tmp;
-	unsigned char	bmp_file_header[54];
+	int					i;
+	int					tmp;
+	unsigned char		bmp_file_header[54];
 
 	i = 0;
 	while (i < 54)
@@ -45,8 +43,7 @@ static int
 	return (!(write(fd, bmp_file_header, 54) < 0));
 }
 
-static int
-	get_color(t_img *frame, int x, int y)
+static int				get_color(t_img *frame, int x, int y)
 {
 	int	rgb;
 	int	color;
@@ -58,8 +55,7 @@ static int
 	return (rgb);
 }
 
-static int
-	write_bmp_data(int file, t_img *frame, int pad)
+static int				write_bmp_data(int file, t_img *frame, int pad)
 {
 	const unsigned char	zero[3] = {0, 0, 0};
 	int					y;

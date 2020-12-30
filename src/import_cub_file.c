@@ -6,15 +6,15 @@
 /*   By: yoguchi <yoguchi@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/13 22:15:57 by yoguchi           #+#    #+#             */
-/*   Updated: 2020/12/29 22:57:32 by yoguchi          ###   ########.fr       */
+/*   Updated: 2020/12/30 10:33:42 by yoguchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
-static int	open_cub_file(char *file_path)	
+static int			open_cub_file(char *file_path)
 {
-	int fd;
+	int				fd;
 
 	if (ft_check_extension(file_path, "cub") == false)
 	{
@@ -29,9 +29,9 @@ static int	open_cub_file(char *file_path)
 	return (fd);
 }
 
-static bool	parse_line(t_game *game, char *line)
+static bool			parse_line(t_game *game, char *line)
 {
-	char 			*data_head;
+	char			*data_head;
 	static bool		still_mapping = false;
 	char			**splits;
 	bool			ret;
@@ -49,11 +49,11 @@ static bool	parse_line(t_game *game, char *line)
 	return (true);
 }
 
-static bool	read_cub_file(t_game *game, int fd)
+static bool			read_cub_file(t_game *game, int fd)
 {
-	int		ret_get_next_line;
-	bool	ret_parse_line;
-	char	*line;
+	int				ret_get_next_line;
+	bool			ret_parse_line;
+	char			*line;
 
 	while (1)
 	{
@@ -70,13 +70,13 @@ static bool	read_cub_file(t_game *game, int fd)
 	return (true);
 }
 
-bool		import_cub_file(t_game *game, char *file_path)
+bool				import_cub_file(t_game *game, char *file_path)
 {
 	int		fd;
 	bool	result_read_cub_file;
 
 	if ((fd = open_cub_file(file_path)) < 0)
-		return (false);	
+		return (false);
 	result_read_cub_file = read_cub_file(game, fd);
 	close(fd);
 	if (result_read_cub_file == false)

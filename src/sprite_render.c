@@ -6,7 +6,7 @@
 /*   By: yoguchi <yoguchi@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/27 19:05:17 by yoguchi           #+#    #+#             */
-/*   Updated: 2020/12/30 09:32:50 by yoguchi          ###   ########.fr       */
+/*   Updated: 2020/12/30 11:06:08 by yoguchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static void			set_sprite_position_data(t_game *game,
 	sprite->angle_from_left_side = sprite->angle + (game->fov_angle / 2);
 	normalize_angle(&(sprite->angle_from_left_side));
 	if (sprite->angle_from_left_side > ft_deg_to_rad(180))
-			sprite->angle_from_left_side -= ft_deg_to_rad(360);
+		sprite->angle_from_left_side -= ft_deg_to_rad(360);
 	sprite->px_from_left_side = (int)(sprite->angle_from_left_side
 										/ (game->fov_angle / window->width));
 	prj->tex = &(game->texture.sprite);
@@ -66,14 +66,14 @@ static void			put_sprite_in_frame(t_game *game, t_sprite *sprite,
 		if (sprite->px_from_left_side + (prj->drawing_width / 2) < x)
 			break ;
 		y = -1;
-		while(++y < game->mlx.window.height)
+		while (++y < game->mlx.window.height)
 		{
 			if (y < prj->top_px)
 				continue ;
 			if (prj->top_px + prj->drawing_height - 1 < y)
-				break;
-			get_sprite_pixel_color(x - (sprite->px_from_left_side - (prj->drawing_width / 2)),
-														y - prj->top_px, prj);
+				break ;
+			get_sprite_pixel_color(x - (sprite->px_from_left_side
+						- (prj->drawing_width / 2)), y - prj->top_px, prj);
 			if ((sprite->dist < game->rays.ray[x]->dist) &&
 				(get_t(prj->texture_px_color) == 0))
 				image_put_pixel_color(&(game->frame), x, y,

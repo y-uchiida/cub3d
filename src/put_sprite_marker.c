@@ -6,25 +6,22 @@
 /*   By: yoguchi <yoguchi@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/24 00:10:26 by yoguchi           #+#    #+#             */
-/*   Updated: 2020/12/30 10:06:44 by yoguchi          ###   ########.fr       */
+/*   Updated: 2020/12/30 10:49:30 by yoguchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
-void	put_sprite_marker(t_game *game)
+void		put_sprite_marker(t_game *game)
 {
 	int		x;
 	int		y;
 	int		mini_tile;
 	t_rect	marker;
 
-	
+	mini_tile = TILE_SIZE;
 	if (game->minimap.scale != TILE_SIZE)
 		mini_tile = game->minimap.scale;
-	else
-		mini_tile = TILE_SIZE;
-
 	y = -1;
 	while (++y < game->map.rows)
 	{

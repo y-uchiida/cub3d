@@ -6,7 +6,7 @@
 /*   By: yoguchi <yoguchi@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/16 01:29:13 by yoguchi           #+#    #+#             */
-/*   Updated: 2020/12/29 16:39:18 by yoguchi          ###   ########.fr       */
+/*   Updated: 2020/12/30 10:37:00 by yoguchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 t_color		create_trgb(int t, int r, int g, int b)
 {
-	return(t << 24 | r << 16 | g << 8 | b);
+	return (t << 24 | r << 16 | g << 8 | b);
 }
 
 int			get_t(t_color trgb)

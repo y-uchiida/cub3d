@@ -6,7 +6,7 @@
 /*   By: yoguchi <yoguchi@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/13 22:48:27 by yoguchi           #+#    #+#             */
-/*   Updated: 2020/12/19 18:10:55 by yoguchi          ###   ########.fr       */
+/*   Updated: 2020/12/30 11:03:24 by yoguchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static bool	set_resolution(t_mlx_window *window, const char **splits)
 		val = (char *)splits[i];
 		while (*val != '\0')
 		{
-			if(ft_isdigit(*val) == 0)
+			if (ft_isdigit(*val) == 0)
 				return (put_errors(ERR_INVALID_RESOL_INPUT, "set_resolution"));
 			val++;
 		}
@@ -41,7 +41,7 @@ static bool	set_resolution(t_mlx_window *window, const char **splits)
 	return (true);
 }
 
-static bool set_back_color(t_color *color, const char **rgb_str)
+static bool	set_back_color(t_color *color, const char **rgb_str)
 {
 	int				i;
 	unsigned int	rgb[3];
@@ -50,13 +50,12 @@ static bool set_back_color(t_color *color, const char **rgb_str)
 	i = 0;
 	while (rgb_str[i] != NULL)
 	{
-
 		if (i > 2)
 			return (put_errors(ERR_INVALID_COLOR_INPUT, "set_back_color"));
 		val = (char *)rgb_str[i];
 		while (*val != '\0')
 		{
-			if(ft_isdigit(*val) == 0)
+			if (ft_isdigit(*val) == 0)
 				return (put_errors(ERR_INVALID_COLOR_INPUT, "set_back_color"));
 			val++;
 		}
@@ -77,7 +76,7 @@ static bool	parse_back_colors(t_game *game, const char **splits)
 	if (splits[2] != NULL)
 		return (put_errors(ERR_INVALID_COLOR_INPUT, "parse_back_colors"));
 	color = &(game->map.floor_color);
-	if(ft_strncmp(splits[0], "C", 1) == 0)
+	if (ft_strncmp(splits[0], "C", 1) == 0)
 		color = &(game->map.ceil_color);
 	if (*color != NONE)
 		return (put_errors(ERR_DUPLICATE_COLOR_INPUT, "parse_back_colors"));
@@ -120,7 +119,7 @@ bool		set_conf_items(t_game *game, const char **splits)
 		(ft_strncmp(splits[0], "SO", 2) == 0) ||
 		(ft_strncmp(splits[0], "WE", 2) == 0) ||
 		(ft_strncmp(splits[0], "EA", 2) == 0) ||
-		(ft_strncmp(splits[0], "S",  1) == 0))
+		(ft_strncmp(splits[0], "S", 1) == 0))
 		return (parse_textures(game, splits));
 	else
 		return (put_errors(ERR_INVALID_CONF_PARAM, "set_conf_items"));

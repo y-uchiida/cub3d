@@ -6,13 +6,13 @@
 /*   By: yoguchi <yoguchi@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/27 04:05:14 by yoguchi           #+#    #+#             */
-/*   Updated: 2020/12/27 05:30:16 by yoguchi          ###   ########.fr       */
+/*   Updated: 2020/12/30 10:38:07 by yoguchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
-static void	map_copy_free(char	**map_copy)
+static void	map_copy_free(char **map_copy)
 {
 	int		n;
 
@@ -87,7 +87,7 @@ bool		map_closed_check(t_game *game)
 	if (create_map_copy(game, &map_copy) == false)
 		return (false);
 	player = game->player;
-	if (depth_searh(game, map_copy, 
+	if (depth_searh(game, map_copy,
 					player.initial_x, player.initial_y) == false)
 	{
 		put_errors(ERR_MAP_NOT_CLOSED, "map_closed_check");

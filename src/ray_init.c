@@ -6,7 +6,7 @@
 /*   By: yoguchi <yoguchi@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/13 16:10:55 by yoguchi           #+#    #+#             */
-/*   Updated: 2020/12/20 22:58:53 by yoguchi          ###   ########.fr       */
+/*   Updated: 2020/12/30 10:52:40 by yoguchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,5 @@ bool		ray_init(t_game *game)
 		}
 		strip_id++;
 	}
-		
 	return (true);
 }

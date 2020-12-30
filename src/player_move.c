@@ -6,7 +6,7 @@
 /*   By: yoguchi <yoguchi@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/13 14:38:59 by yoguchi           #+#    #+#             */
-/*   Updated: 2020/12/25 13:13:33 by yoguchi          ###   ########.fr       */
+/*   Updated: 2020/12/30 10:44:07 by yoguchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ static void		move_strafe(t_player *p, float *new)
 
 	move_x = (cos(p->rotation_angle - (PI / 2)) * p->move_speed);
 	move_y = (sin(p->rotation_angle - (PI / 2)) * p->move_speed);
-
 	if (p->move_direction == 1)
 	{
 		new[TABINDEX_X] = p->x - move_x;
@@ -61,7 +60,7 @@ void			player_move(t_game *game)
 	if (p->move_direction != 0)
 	{
 		player_new_position(p, new);
-		if (map_has_wall_at( new[TABINDEX_X], new[TABINDEX_Y], map) != true)
+		if (map_has_wall_at(new[TABINDEX_X], new[TABINDEX_Y], map) != true)
 		{
 			p->x = new[TABINDEX_X];
 			p->y = new[TABINDEX_Y];
