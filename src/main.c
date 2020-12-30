@@ -6,7 +6,7 @@
 /*   By: yoguchi <yoguchi@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/13 04:06:43 by yoguchi           #+#    #+#             */
-/*   Updated: 2020/12/27 03:15:12 by yoguchi          ###   ########.fr       */
+/*   Updated: 2020/12/30 00:54:48 by yoguchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ void show_all_data(t_game *game)
 		i = 0;
 		while(game->map.map[i] != NULL)
 		{
-			printf("[%03d]%s\n", i, game->map.map[i]);
+			printf("[%03d, len%03ld]%s\n", i, ft_strlen(game->map.map[i]), game->map.map[i]);
 			i++;
 		}
 	}
@@ -147,16 +147,14 @@ void show_all_data(t_game *game)
 static bool setup(t_game *game)
 {
 	game->running = true;
-	window_init(game);
 	player_init(game);
 	frame_init(game);
 	ray_init(game);
+	minimap_init(game);
 	mlx_do_key_autorepeaton(game->mlx.ptr);
 	mlx_do_sync(game->mlx.ptr);
-	register_hooks(game);
 
-
-	// show_all_data(game);
+	show_all_data(game);
 
 	return (true);
 }
@@ -167,8 +165,11 @@ bool		game_init(t_game *game)
 		return (put_errors(ERR_MLX_INIT_FAILURE, "game_init"));
 	mlx_get_screen_size(game->mlx.ptr,
 				&game->mlx.window.max_width, &game->mlx.window.max_height);
+	game->mlx.window.ptr = NULL;
 	game->mlx.window.width = INT_MIN;
 	game->mlx.window.height = INT_MIN;
+	game->fov_angle = (60 * (PI / 180));
+	game->fov_occupancy = game->fov_angle / (360 * (PI / 180));
 	game->map.ceil_color = NONE;
 	game->map.floor_color = NONE;
 	game->player.x = FLT_MIN;
@@ -194,15 +195,17 @@ int			main(int argc, char *argv[])
 	else
 		return (put_errors(ERR_NO_ARG, "main"));
 	setup(&game);
+
 	if ((argc == 3) && (ft_strncmp(argv[2], "--save", 6) == 0))
 	{
-		if (screenshot_save(&game))
-		{
+		if (screenshot_save(&game) == false)
 			game_exit(&game);
-			return (EXIT_FAILURE);
-		}
 	}
 	else
+	{
+		window_init(&game);	
+		register_hooks(&game);
 		mlx_loop(game.mlx.ptr);
+	}
 	return (EXIT_SUCCESS);
 }

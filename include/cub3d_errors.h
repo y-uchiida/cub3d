@@ -6,7 +6,7 @@
 /*   By: yoguchi <yoguchi@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/13 18:15:27 by yoguchi           #+#    #+#             */
-/*   Updated: 2020/12/27 04:10:14 by yoguchi          ###   ########.fr       */
+/*   Updated: 2020/12/29 22:56:51 by yoguchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@
 # define ERR_CANT_OPEN_BMPFILE "failed create screenshot bmp file."
 # define ERR_FAILED_WRITE_BMP_HEADER "failed write bmp file header."
 # define ERR_WRITE_BMP_COLOR "failed write bmp color."
+# define ERR_MAP_TOO_LARGE "given map is too large. must be under 100*100."
 # define ERR_MAP_NOT_CLOSED "given map data not closed."
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: yoguchi <yoguchi@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/26 20:53:19 by yoguchi           #+#    #+#             */
-/*   Updated: 2020/12/26 22:40:06 by yoguchi          ###   ########.fr       */
+/*   Updated: 2020/12/28 13:45:36 by yoguchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,24 +15,25 @@
 bool			sprite_new_item(t_game *game, int x, int y)
 {
 	t_sprite	*new_spr;
-	t_sprite	*list_ptr;
+	t_sprite	*last;
 
 	game->sprites.num += 1;
 	if ((new_spr = (t_sprite *)ft_calloc(sizeof(t_sprite), 1)) == NULL)
 		return (put_errors(ERR_MALLOC_FAILED, "sprite_new_item"));
-	new_spr->x = (float)(x + 0.5);
-	new_spr->y = (float)(y + 0.5);
-	new_spr->height = 200;
-	new_spr->width = 200;
+	new_spr->grid_x = x;
+	new_spr->grid_y = y;
+	new_spr->x = (float)((x + 0.5) * TILE_SIZE);
+	new_spr->y = (float)((y + 0.5) * TILE_SIZE);
+	new_spr->dist = FLT_MIN;
 	new_spr->next = NULL;
 	if (game->sprites.num == 1)
-		game->sprites.sprite = (void *)new_spr;
+		game->sprites.sprite = new_spr;
 	else
 	{
-		list_ptr = game->sprites.sprite;
-		while (list_ptr->next != NULL)
-			list_ptr = (t_sprite *)list_ptr->next;
-		list_ptr->next = (void *)new_spr;
+		last = game->sprites.sprite;
+		while (last->next != NULL)
+			last = last->next;
+		last->next = new_spr;
 	}
 	return (true);
 }

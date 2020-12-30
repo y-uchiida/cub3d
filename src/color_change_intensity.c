@@ -6,7 +6,7 @@
 /*   By: yoguchi <yoguchi@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/23 04:32:11 by yoguchi           #+#    #+#             */
-/*   Updated: 2020/12/23 04:40:02 by yoguchi          ###   ########.fr       */
+/*   Updated: 2020/12/30 10:12:32 by yoguchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,5 @@ void	color_change_intensity(t_color *color, float factor)
 	r = (*color & 0x00ff0000) * factor;
 	g = (*color & 0x0000ff00) * factor;
 	b = (*color & 0x000000ff) * factor;
-
 	*color = (t | (r & 0x00ff0000) | (g & 0x0000ff00) | (b & 0x000000ff));
 }

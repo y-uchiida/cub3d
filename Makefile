@@ -6,7 +6,7 @@
 #    By: yoguchi <yoguchi@student.42tokyo.jp>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/12/13 04:07:40 by yoguchi           #+#    #+#              #
-#    Updated: 2020/12/27 04:07:01 by yoguchi          ###   ########.fr        #
+#    Updated: 2020/12/29 23:57:15 by yoguchi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,6 +25,7 @@ SRCS = \
  map_render\
  map_contain_the_coordinate\
  map_closed_check\
+ minimap_init\
  textures_free\
  set_conf_items\
  register_hooks\
@@ -50,6 +51,8 @@ SRCS = \
  sprite_new_item\
  sprites_calc_distance\
  sprites_sort\
+ put_sprite_marker\
+ sprite_render\
  sprites_free\
  game_data_update\
  game_exit\

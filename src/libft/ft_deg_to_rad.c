@@ -1,30 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ray_cast_all.c                                     :+:      :+:    :+:   */
+/*   ft_deg_to_rad.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yoguchi <yoguchi@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/12/13 14:30:04 by yoguchi           #+#    #+#             */
-/*   Updated: 2020/12/29 08:41:25 by yoguchi          ###   ########.fr       */
+/*   Created: 2020/12/28 17:55:14 by yoguchi           #+#    #+#             */
+/*   Updated: 2020/12/30 10:09:47 by yoguchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/cub3d.h"
+#include "./libft.h"
 
-bool		ray_cast_all(t_game *game)
+float		ft_deg_to_rad(float deg)
 {
-	float	ray_angle;
-	int		strip_id;
-
-	ray_angle = game->player.rotation_angle - (game->fov_angle / 2);
-	strip_id = 0;
-	while(strip_id < game->rays.num)
-	{
-		normalize_angle(&ray_angle);
-		ray_cast(game, ray_angle, strip_id);
-		ray_angle += game->fov_angle / game->rays.num;
-		strip_id++;
-	}
-	return (true);
+	return (deg * (FT_PI / 180));
 }

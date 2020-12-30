@@ -6,7 +6,7 @@
 /*   By: yoguchi <yoguchi@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/26 21:12:00 by yoguchi           #+#    #+#             */
-/*   Updated: 2020/12/26 21:53:31 by yoguchi          ###   ########.fr       */
+/*   Updated: 2020/12/27 18:31:18 by yoguchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,8 @@ void			sprites_free(t_game *game)
 	ptr = game->sprites.sprite;
 	while (ptr != NULL)
 	{
-		tmp = (t_sprite *)ptr->next;
+		tmp = ptr->next;
 		free(ptr);
-		ptr = NULL;
 		ptr = tmp;
 	}
 	game->sprites.num = 0;

@@ -6,7 +6,7 @@
 /*   By: yoguchi <yoguchi@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/20 17:54:10 by yoguchi           #+#    #+#             */
-/*   Updated: 2020/12/26 19:53:02 by yoguchi          ###   ########.fr       */
+/*   Updated: 2020/12/29 23:47:01 by yoguchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,20 +38,18 @@ static void			set_projection_variables(t_game *game, int x,
 	t_mlx_window	*window;
 	t_player		*player;
 	t_ray			*ray;
-	float			dist_prj_plane;
 
 	window = &(game->mlx.window);
 	player = &(game->player);
 	ray = game->rays.ray[x];
-	dist_prj_plane =  ((window->width / 2) / tan(FOV_ANGLE / 2));
 	prj->perp_dist = ray->dist * cos(ray->angle - player->rotation_angle);
-	prj->wall_height = (TILE_SIZE / prj->perp_dist) * dist_prj_plane;
-	prj->wall_strip_height = (int)prj->wall_height;
-	prj->wall_top_px = (window->height / 2) - (prj->wall_strip_height / 2);
-	prj->wall_top_px = (prj->wall_top_px < 0) ? 0 : prj->wall_top_px;
-	prj->wall_bottom_px = (window->height / 2) + (prj->wall_strip_height / 2);
-	if (prj->wall_bottom_px > window->height)
-		prj->wall_bottom_px = window->height;
+	prj->actual_height = (TILE_SIZE / prj->perp_dist) * window->dist_prj_plane;
+	prj->drawing_height = (int)prj->actual_height;
+	prj->top_px = (window->height / 2) - (prj->drawing_height / 2);
+	prj->top_px = (prj->top_px < 0) ? 0 : prj->top_px;
+	prj->bottom_px = (window->height / 2) + (prj->drawing_height / 2);
+	if (prj->bottom_px > window->height)
+		prj->bottom_px = window->height;
 	prj->tex = get_projection_tex(ray->is_facing_down,
 		ray->is_facing_right, ray->wall_hit_vertical, &(game->texture));
 }
@@ -65,8 +63,8 @@ static void			get_texture_pixel_color(t_game *game, int x, int y,
 
 	ray = game->rays.ray[x];
 	prj->distance_from_top = (game->mlx.window.height / 2)
-							- (prj->wall_strip_height / 2);
-	propotion_y = (y - prj->distance_from_top) / (float)prj->wall_strip_height;
+							- (prj->drawing_height / 2);
+	propotion_y = (y - prj->distance_from_top) / (float)prj->drawing_height;
 	prj->tex_offset_y = (int)(prj->tex->height * propotion_y);
 	if (ray->wall_hit_vertical)
 		propotion_x = (fmodf(ray->wall_intercept_y, TILE_SIZE) / TILE_SIZE);
@@ -83,13 +81,13 @@ static void			set_tex_color(t_game *game, int x, int y,
 	t_img			*frame;
 
 	frame = &(game->frame);
-	if (y < prj->wall_top_px)
+	if (y < prj->top_px)
 		image_put_pixel_color(frame, x, y, game->map.ceil_color);
-	else if (prj->wall_top_px <= y && y < prj->wall_bottom_px)
+	else if (prj->top_px <= y && y < prj->bottom_px)
 	{
 		get_texture_pixel_color(game, x, y, prj);
-		if (game->rays.ray[x]->wall_hit_vertical)
-			color_change_intensity(&(prj->texture_px_color), 0.65);
+		// if (game->rays.ray[x]->wall_hit_vertical)
+		// 	color_change_intensity(&(prj->texture_px_color), 0.65);
 		image_put_pixel_color(frame, x, y, prj->texture_px_color);
 	}
 	else
@@ -116,77 +114,4 @@ void				render_fov(t_game *game)
 		x++;
 	}
 	return ;
-
-	// 	// int x;
-	// int				x;
-	// // int y;
-	// int			y;
-	// t_projection	prj;
-
-	// // x = 0;
-	// x = 0;
-	// // while(x < NUM_RAYS)
-	// // {
-	// while (x < game->rays.num)
-	// {
-	// 	set_projection_variables(game, x, &prj);
-
-	// // 	/* 画面の上端から壁の下端まで、colorBufferの値を変更する */
-	// // 	y = 0;
-	// 	y = 0;
-	// // 	while(y < WINDOW_HEIGHT)
-	// // 	{
-	// 	while (y < game->mlx.window.height)
-	// 	{
-	// // 		if (y < wallTopPixel)
-	// // 			drawPixel(x, y, 0xff333333);
-	// // 			// colorBuffer[(WINDOW_WIDTH * y) + x] = 0xff333333;
-	// 		if (y < prj.wall_top_px)
-	// 			image_put_pixel_color(game->frame, x, y, game->map.ceil_color);
-	// // 		else if (wallTopPixel <= y && y < wallBottomPixel)
-	// // 		{
-	// 		else if (prj.wall_top_px <= y && y < prj.wall_bottom_px)
-	// 		{
-	// // 			/* 描画する壁の高さが画面の高さを超えている(画面からはみ出す)場合、テクスチャ上の参照すべきy座標ははみ出す分だけ下にずれていなければならない */
-	// // 			/* distanceFromTopに、はみ出し部分を考慮したy座標を保持する */
-	// // 			/* distanceFromTop = (今回描画するピクセルのy座標) - ( 壁の描画開始位置(調整していないのでマイナスの値になる場合あり) ) */
-	// // 			distanceFromTop = y - ( (WINDOW_HEIGHT / 2) - (wallStripHeight / 2) );
-	// 			prj.distance_from_top = y - ((game->mlx.window.height / 2)
-	// 											- (prj.wall_strip_height / 2));
-
-	// // 			/* wallStripHeightは、壁との交点の位置の距離によって伸縮する */
-	// // 			/* wallStripHeight(描画する壁の高さ)でtexture_heightを割った比率をかけてやることで、テクスチャ上のピクセルの位置がわかる */
-	// // 			textureOffsetY = (int)((distanceFromTop) * ( (float)texture_height / wallStripHeight ));
-	// 			prj.tex_offset_y = (int)(prj.distance_from_top
-	// 					* ((float)prj.tex->height / prj.wall_strip_height));
-
-	// // 			texture_pixel_color = wallTextures[texNum].texture_buffer[(texture_width * textureOffsetY) + textureOffsetX];
-	// 			prj.texture_px_color = prj.tex->data[
-	// 				(prj.tex->width * prj.tex_offset_y) * prj.tex_offset_x];
-
-	// // 			/* rayが縦軸方向のグリッドに当たった場合、描画色を暗くする */
-	// // 			if (rays[x].wasHitVertical)
-	// // 				changeColorIntensity(&texture_pixel_color, 0.65);
-	// 			if (game->rays.ray[x]->wall_hit_vertical)
-	// 				color_change_intensity(&(prj.texture_px_color), 0.65);
-	// // 			drawPixel(x, y, texture_pixel_color);
-	// 			image_put_pixel_color(game->frame, x, y, prj.texture_px_color);
-	// // 			// colorBuffer[(WINDOW_WIDTH * y) + x] = texture_pixel_color;
-	// 		}
-	// // 		}
-	// // 		else
-	// // 			drawPixel(x, y, 0xff777777);
-	// 		else
-	// 			image_put_pixel_color(game->frame, x, y, game->map.floor_color);
-	// // 			// colorBuffer[(WINDOW_WIDTH * y) + x] = 0xff777777;
-	// // 		y++;
-	// 		y++;
-	// // 	}
-	// 	}
-	// // 	x++;
-	// 	x++;
-	// // }
-	// }
-
-	// return ;
 }

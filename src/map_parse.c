@@ -6,7 +6,7 @@
 /*   By: yoguchi <yoguchi@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/13 23:05:58 by yoguchi           #+#    #+#             */
-/*   Updated: 2020/12/26 22:38:05 by yoguchi          ###   ########.fr       */
+/*   Updated: 2020/12/27 06:50:26 by yoguchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static bool		extend_map_col(t_map *map)
 	if ((new_map = (char **)ft_calloc(sizeof(char *), map->rows + 1)) == NULL)
 		return (put_errors(ERR_MALLOC_FAILED, "extend_map_col"));
 	i = 0;
-	while (i < map->rows)
+	while (i < map->rows - 1)
 	{
 		new_map[i] = (char *)ft_calloc(sizeof(char), map->cols + 1);
 		if (new_map[i] == NULL)
@@ -49,9 +49,7 @@ static bool		add_map_row(t_map *map, char *line)
 	map_ptr = map->map;
 	i = -1;
 	while (map_ptr[++i] != NULL)
-	{
 		new_map[i] = map_ptr[i];
-	}
 	if ((new_row = (char *)ft_calloc(sizeof(char), map->cols + 1)) == NULL)
 	{
 		free(new_map);

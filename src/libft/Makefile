@@ -17,6 +17,8 @@ NAME = libft.a
 
 SRCS =\
 ft_abs.c \
+ft_rad_to_deg.c \
+ft_deg_to_rad.c \
 ft_atoi.c \
 ft_bzero.c \
 ft_calloc.c \
@@ -28,6 +30,8 @@ ft_isprint.c \
 ft_isspace.c \
 ft_set_max.c \
 ft_set_min.c \
+ft_set_max_f.c \
+ft_set_min_f.c \
 ft_memccpy.c \
 ft_memchr.c \
 ft_memcmp.c \

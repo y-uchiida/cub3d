@@ -6,7 +6,7 @@
 /*   By: yoguchi <yoguchi@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/03 06:15:26 by yoguchi           #+#    #+#             */
-/*   Updated: 2020/12/19 17:56:00 by yoguchi          ###   ########.fr       */
+/*   Updated: 2020/12/30 08:52:27 by yoguchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,13 @@
 # include <stdio.h>
 # include <stdbool.h>
 
+# ifndef FT_PI
+#  define FT_PI 3.141592653589793
+#  ifndef FT_TWO_PI
+#   define FT_TOW_PI 6.283185307179586
+#  endif
+# endif
+
 typedef struct		s_list
 {
 	void			*content;
@@ -27,6 +34,8 @@ typedef struct		s_list
 }					t_list;
 
 int					ft_abs(int n);
+float				ft_rad_to_deg(float rad);
+float				ft_deg_to_rad(float deg);
 int					ft_atoi(const char *ntpr);
 int					ft_isalnum(int c);
 int					ft_isalpha(int c);
@@ -36,6 +45,8 @@ int					ft_isprint(int c);
 int					ft_isspace(int c);
 int					ft_set_max(int num1, int num2);
 int					ft_set_min(int num1, int num2);
+float				ft_set_max_f(float num1, float num2);
+float				ft_set_min_f(float num1, float num2);
 int					ft_memcmp(const void *s1, const void *s2, size_t n);
 void				*ft_memset(void *s, int c, size_t n);
 void				ft_bzero(void *s, size_t n);

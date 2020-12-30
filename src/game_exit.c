@@ -6,7 +6,7 @@
 /*   By: yoguchi <yoguchi@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/13 14:33:53 by yoguchi           #+#    #+#             */
-/*   Updated: 2020/12/27 05:34:30 by yoguchi          ###   ########.fr       */
+/*   Updated: 2020/12/30 10:14:55 by yoguchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void show_all_data(t_game *game);
 
-static bool	game_free(t_game *game)
+static bool		game_free(t_game *game)
 {
 	map_free(game->map.map);
 	game->map.map = NULL;
@@ -28,7 +28,7 @@ static bool	game_free(t_game *game)
 	return (true);
 }
 
-void		game_exit(t_game *game)
+void			game_exit(t_game *game)
 {
 	game_free(game);
 	show_all_data(game);

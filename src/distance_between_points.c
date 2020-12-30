@@ -6,7 +6,7 @@
 /*   By: yoguchi <yoguchi@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/19 22:37:02 by yoguchi           #+#    #+#             */
-/*   Updated: 2020/12/19 22:37:15 by yoguchi          ###   ########.fr       */
+/*   Updated: 2020/12/30 10:13:21 by yoguchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,5 @@
 
 float	distance_between_points(float x1, float y1, float x2, float y2)
 {
-	return (sqrt((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 -y1)));
+	return (sqrt((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1)));
 }

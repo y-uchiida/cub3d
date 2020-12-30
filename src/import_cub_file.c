@@ -6,7 +6,7 @@
 /*   By: yoguchi <yoguchi@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/13 22:15:57 by yoguchi           #+#    #+#             */
-/*   Updated: 2020/12/27 04:09:38 by yoguchi          ###   ########.fr       */
+/*   Updated: 2020/12/29 22:57:32 by yoguchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,10 +81,9 @@ bool		import_cub_file(t_game *game, char *file_path)
 	close(fd);
 	if (result_read_cub_file == false)
 		return (false);
+	if (game->map.rows * game->map.cols > (100 * 100))
+		return (put_errors(ERR_MAP_TOO_LARGE, "import_cub_file"));
 	if (map_closed_check(game) == false)
-	{
-		put_errors(ERR_MAP_NOT_CLOSED, "import_cub_file");
-		return (false);
-	}
+		return (put_errors(ERR_MAP_NOT_CLOSED, "import_cub_file"));
 	return (true);
 }

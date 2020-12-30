@@ -6,7 +6,7 @@
 /*   By: yoguchi <yoguchi@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/13 15:59:58 by yoguchi           #+#    #+#             */
-/*   Updated: 2020/12/27 04:06:04 by yoguchi          ###   ########.fr       */
+/*   Updated: 2020/12/30 08:41:57 by yoguchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,19 +34,18 @@
 # include "./libft.h"
 # include "./mlx.h"
 
-# define PI 3.14159265
-# define TWO_PI 6.28318530
-# define FOV_ANGLE (60 * (PI / 180))
+# define PI 3.141592653589793
+# define TWO_PI 6.283185307179586
 
-# define TILE_SIZE 32
-# define MINIMAP_SCALE_FACTOR 0.1
+# define TILE_SIZE 64
+# define MINIMAP_SCALE_FACTOR 0.25
 
 # define TABINDEX_X 0
 # define TABINDEX_Y 1
 
-/*
-** define colors
-*/
+# define SIDE_L 0
+# define SIDE_R 1
+
 # define NONE 0xFF000000
 # define WHITE 0x00FFFFFF
 # define BLACK 0x00000000
@@ -66,6 +65,7 @@ typedef struct		s_mlx_window
 	int				height;
 	int				max_width;
 	int				max_height;
+	float			dist_prj_plane;
 }					t_mlx_window;
 
 typedef	struct		s_mlx
@@ -82,6 +82,13 @@ typedef struct		s_map
 	t_color			ceil_color;
 	t_color			floor_color;
 }					t_map;
+
+typedef struct		s_minimap
+{
+	int				scale_x;
+	int				scale_y;
+	int				scale;
+}					t_minimap;
 
 typedef struct		s_img
 {
@@ -146,12 +153,15 @@ typedef struct		s_rays
 
 typedef struct 		s_sprite
 {
+	int				grid_x;
+	int				grid_y;
 	float			x;
 	float			y;
 	float			dist;
-	float			width;
-	float			height;
-	void			*next;
+	float			angle;
+	float			angle_from_left_side;
+	int				px_from_left_side;
+	struct s_sprite	*next;
 }					t_sprite;
 
 typedef struct 		s_sprites
@@ -160,14 +170,14 @@ typedef struct 		s_sprites
 	t_sprite		*sprite;
 }					t_sprites;
 
-/*
- ** contain all structures
-*/
 typedef struct		s_game
 {
 	bool			running;
+	float			fov_angle;
+	float			fov_occupancy;
 	t_mlx			mlx;
 	t_map			map;
+	t_minimap		minimap;
 	t_texture		texture;
 	t_player		player;
 	t_rays			rays;
@@ -177,11 +187,12 @@ typedef struct		s_game
 
 typedef struct 		s_projection
 {		
-	float			wall_height;
+	float			actual_height;
 	float			perp_dist;
-	int				wall_strip_height;
-	int				wall_top_px;
-	int				wall_bottom_px;
+	int				drawing_height;
+	int				drawing_width;	
+	int				top_px;
+	int				bottom_px;
 	t_img			*tex;
 	t_color			texture_px_color;
 	int				tex_offset_x;
@@ -217,6 +228,7 @@ bool				map_free(char **map);
 void				map_render(t_game *game);
 bool				map_contain_the_coordinate(float x, float y, t_map map);
 bool				map_closed_check(t_game *game);
+bool				minimap_init(t_game *game);
 void				textures_free(t_game *game);
 bool				set_conf_items(t_game *game, const char **splits);
 bool				register_hooks(t_game *game);
@@ -250,6 +262,8 @@ bool				map_has_wall_at(float x, float y, t_map *map);
 bool				sprite_new_item(t_game *game, int x, int y);
 bool				sprites_calc_distance(t_game *game);
 void				sprites_sort(t_game *game);
+void				sprite_render(t_game *game);
+void				put_sprite_marker(t_game *game);
 void				sprites_free(t_game *game);
 void				render_fov(t_game *game);
 t_color				create_trgb(int t, int r, int g, int b);

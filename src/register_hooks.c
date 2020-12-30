@@ -6,7 +6,7 @@
 /*   By: yoguchi <yoguchi@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/13 12:32:39 by yoguchi           #+#    #+#             */
-/*   Updated: 2020/12/27 03:56:01 by yoguchi          ###   ########.fr       */
+/*   Updated: 2020/12/30 00:54:28 by yoguchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,12 @@ static int		game_loop(t_game *game)
 {
 	game_data_update(game);
 	render_fov(game);
+	sprite_render(game);
 	map_render(game);
 	ray_render(game);
+	put_sprite_marker(game);
 	player_render(game);
+
 	mlx_put_image_to_window(game->mlx.ptr, game->mlx.window.ptr,
 				game->frame.ptr, 0, 0);
 	return (EXIT_SUCCESS);
@@ -68,13 +71,7 @@ bool			register_hooks(t_game *game)
 	window_ptr = game->mlx.window.ptr;
 	mlx_hook(window_ptr, KeyPress, KeyPressMask, key_pressed, game);
 	mlx_hook(window_ptr, KeyRelease, KeyReleaseMask, key_released, game);
-	// mlx_hook(window_ptr, DestroyNotify, StructureNotifyMask,
-	// 											close_button_pressed, game);
-
 	mlx_hook(window_ptr, ClientMessage, StructureNotifyMask, close_button_pressed, game);
-
-	// mlx_hook(window_ptr, DestroyNotify, 0, close_button_pressed, game);
-
 	mlx_loop_hook(game->mlx.ptr, game_loop, game);
 	return (true);
 }
