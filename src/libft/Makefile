@@ -22,6 +22,7 @@ ft_deg_to_rad.c \
 ft_atoi.c \
 ft_bzero.c \
 ft_calloc.c \
+ft_free_and_set_null.c \
 ft_isalnum.c \
 ft_isalpha.c \
 ft_isascii.c \
@@ -105,4 +106,4 @@ bonus: $(OBJS) $(BONUS_OBJS)
 so:
 	$(CC) $(CFLAGS) -shared -fPIC -o libft.so $(SRCS) $(BONUS)
 
-.PHONY: all clean fclean re
+.PHONY: all clean fclean re debug fsanitize

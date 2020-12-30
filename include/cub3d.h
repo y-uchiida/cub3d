@@ -6,7 +6,7 @@
 /*   By: yoguchi <yoguchi@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/13 15:59:58 by yoguchi           #+#    #+#             */
-/*   Updated: 2020/12/30 11:17:16 by yoguchi          ###   ########.fr       */
+/*   Updated: 2020/12/30 22:50:07 by yoguchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -222,14 +222,17 @@ bool				window_init(t_game *game);
 bool				import_cub_file(t_game *game, char *file_path);
 bool				import_xpm_file(t_game *game, t_img *tex,
 											const char *file_path);
+bool				bg_colors_set(t_game *game, const char **splits);
 bool				map_parse(t_game *game, char *line);
 bool				map_free(char **map);
 void				map_render(t_game *game);
 bool				map_contain_the_coordinate(float x, float y, t_map map);
 bool				map_closed_check(t_game *game);
 bool				minimap_init(t_game *game);
+void				textures_init(t_game *game);
 void				textures_free(t_game *game);
 bool				set_conf_items(t_game *game, const char **splits);
+bool				resolution_set(t_mlx_window *window, const char **splits);
 bool				register_hooks(t_game *game);
 bool				player_init(t_game *game);
 void				player_move(t_game *game);

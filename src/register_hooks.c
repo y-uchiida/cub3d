@@ -6,7 +6,7 @@
 /*   By: yoguchi <yoguchi@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/13 12:32:39 by yoguchi           #+#    #+#             */
-/*   Updated: 2020/12/30 10:58:11 by yoguchi          ###   ########.fr       */
+/*   Updated: 2020/12/31 04:08:22 by yoguchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,8 @@ bool			register_hooks(t_game *game)
 	void	*window_ptr;
 
 	window_ptr = game->mlx.window.ptr;
+	mlx_do_key_autorepeaton(game->mlx.ptr);
+	mlx_do_sync(game->mlx.ptr);
 	mlx_hook(window_ptr, KeyPress, KeyPressMask, key_pressed, game);
 	mlx_hook(window_ptr, KeyRelease, KeyReleaseMask, key_released, game);
 	mlx_hook(window_ptr, ClientMessage, StructureNotifyMask,

@@ -5,6 +5,7 @@ WE ./img/tex_west.xpm
 EA ./img/tex_east.xpm
 
 S ./img/tex_sprite.xpm
+
 F 72,72,72
 C 128,128,128
 

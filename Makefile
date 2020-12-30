@@ -6,13 +6,13 @@
 #    By: yoguchi <yoguchi@student.42tokyo.jp>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/12/13 04:07:40 by yoguchi           #+#    #+#              #
-#    Updated: 2020/12/29 23:57:15 by yoguchi          ###   ########.fr        #
+#    Updated: 2020/12/31 04:13:33 by yoguchi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = cub3D
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -g -O0
 LIBS = -L./lib -lft -lmlx -lXext -lX11 -lm
 
 SRCS = \
@@ -20,14 +20,17 @@ SRCS = \
  window_init\
  import_cub_file\
  import_xpm_file\
+ bg_colors_set\
  map_parse\
  map_free\
  map_render\
  map_contain_the_coordinate\
  map_closed_check\
  minimap_init\
+ textures_init\
  textures_free\
  set_conf_items\
+ resolution_set\
  register_hooks\
  player_init\
  player_move\
@@ -106,6 +109,18 @@ debug: fclean $(OBJS)
 	$(MAKE) -C ./src/minilibx-linux
 	cp ./src/minilibx-linux/libmlx* ./lib/
 	$(MAKE) clean -C ./src/minilibx-linux
+	$(CC) $(CFLAGS) -g -O0 -o $(NAME) $(OBJS) $(LIBS)
+
+fsanitize: fclean $(OBJS)
+	if [ ! -d lib ]; then \
+		mkdir lib; \
+	fi
+	$(MAKE) -C ./src/libft
+	cp ./src/libft/libft.a ./lib/
+	$(MAKE) clean -C ./src/libft
+	$(MAKE) -C ./src/minilibx-linux
+	cp ./src/minilibx-linux/libmlx* ./lib/
+	$(MAKE) clean -C ./src/minilibx-linux
 	$(CC) $(CFLAGS) -g -O0 -fsanitize=address -o $(NAME) $(OBJS) $(LIBS)
 
-.PHONY: all clean fclean re debug
+.PHONY: all clean fclean re debug fsanitize

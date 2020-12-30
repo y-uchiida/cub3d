@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   import_xpm_file.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoguchi <yoguchi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yoguchi <yoguchi@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 21:17:43 by yoguchi           #+#    #+#             */
-/*   Updated: 2020/12/23 17:03:48 by yoguchi          ###   ########.fr       */
+/*   Updated: 2020/12/30 23:40:28 by yoguchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ bool		import_xpm_file(t_game *game, t_img *tx, const char *file_path)
 	img_ptr = mlx_xpm_file_to_image(game->mlx.ptr, (char *)file_path,
 			&(tx->width), &(tx->height));
 	if (img_ptr == NULL)
-		put_errors(ERR_XMPFILE_READ_FAILED, "import_xpm_file");
+		return (put_errors(ERR_XMPFILE_READ_FAILED, "import_xpm_file"));
 	data_ptr = mlx_get_data_addr(img_ptr, &(tx->bpp),
 									&(tx->size_line), &(tx->endian));
 	if (data_ptr == NULL)

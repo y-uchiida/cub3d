@@ -6,7 +6,7 @@
 /*   By: yoguchi <yoguchi@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/13 23:05:58 by yoguchi           #+#    #+#             */
-/*   Updated: 2020/12/30 10:40:02 by yoguchi          ###   ########.fr       */
+/*   Updated: 2020/12/31 04:17:29 by yoguchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,22 +43,25 @@ static bool		add_map_row(t_map *map, char *line)
 	char	**map_ptr;
 	char	*new_row;
 
-	new_map = (char **)ft_calloc(sizeof(char *), map->rows + 1);
+	new_map = (char **)ft_calloc(map->rows + 1, sizeof(char *));
 	if (new_map == NULL)
 		return (put_errors(ERR_MALLOC_FAILED, "add_map_row"));
 	map_ptr = map->map;
 	i = -1;
 	while (map_ptr[++i] != NULL)
 		new_map[i] = map_ptr[i];
-	if ((new_row = (char *)ft_calloc(sizeof(char), map->cols + 1)) == NULL)
+	new_row = NULL;
+	new_row = (char *)ft_calloc(map->cols + 1, sizeof(char));
+	if (new_row == NULL)
 	{
-		free(new_map);
+		map_free(new_map);
 		return (put_errors(ERR_MALLOC_FAILED, "add_map_row"));
 	}
 	ft_strlcpy(new_row, line, map->cols + 1);
 	new_map[i] = new_row;
-	free(map->map);
+	map_ptr = map->map;
 	map->map = new_map;
+	ft_free_and_set_null(map_ptr);
 	return (true);
 }
 
@@ -114,7 +117,7 @@ bool			map_parse(t_game *game, char *line)
 	if (game->map.map == NULL)
 	{
 		game->map.cols = line_len;
-		if ((game->map.map = (char **)ft_calloc(1, 2)) == NULL)
+		if ((game->map.map = (char **)ft_calloc(2, sizeof(char *))) == NULL)
 			return (put_errors(ERR_MALLOC_FAILED, "map_parse"));
 		if ((*(game->map.map) = ft_strdup(line)) == NULL)
 			return (put_errors(ERR_MALLOC_FAILED, "map_parse"));

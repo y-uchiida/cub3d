@@ -6,7 +6,7 @@
 /*   By: yoguchi <yoguchi@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/13 22:15:57 by yoguchi           #+#    #+#             */
-/*   Updated: 2020/12/30 10:33:42 by yoguchi          ###   ########.fr       */
+/*   Updated: 2020/12/31 04:17:15 by yoguchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,14 +32,13 @@ static int			open_cub_file(char *file_path)
 static bool			parse_line(t_game *game, char *line)
 {
 	char			*data_head;
-	static bool		still_mapping = false;
 	char			**splits;
 	bool			ret;
 
 	data_head = (char *)line;
 	while (*data_head == ' ')
 		data_head++;
-	if (*data_head == '1' || still_mapping == true)
+	if (*data_head == '1' || game->map.rows > 0)
 		return (map_parse(game, line));
 	splits = ft_split(data_head, ' ');
 	ret = set_conf_items(game, (const char **)splits);
@@ -61,12 +60,29 @@ static bool			read_cub_file(t_game *game, int fd)
 		if (ret_get_next_line == -1)
 			return (put_errors(ERR_CUBFILE_READ_FAILED, "read_cub_file"));
 		ret_parse_line = parse_line(game, line);
-		free(line);
+		ft_free_and_set_null(line);
 		if (ret_parse_line == false || ret_get_next_line == 0)
 			break ;
 	}
 	if (ret_parse_line == false)
 		return (false);
+	return (true);
+}
+
+static bool			check_conf_params(t_game *game)
+{
+	if (game->mlx.window.width < 0 || game->mlx.window.height < 0)
+		return (put_errors(ERR_NO_RESOL_SETTING, "check_conf_params"));
+	if (game->texture.wall_no.ptr == NULL || game->texture.wall_so.ptr == NULL
+	|| game->texture.wall_ea.ptr == NULL || game->texture.wall_we.ptr == NULL
+	|| game->texture.sprite.ptr == NULL)
+		return (put_errors(ERR_NO_TEXTURE_SETTING, "check_conf_params"));
+	if (game->map.ceil_color == NONE || game->map.floor_color == NONE)
+		return (put_errors(ERR_NO_COLOR_INPUT, "check_conf_params"));
+	if (game->map.rows <= 0 || game->map.cols <= 0)
+		return (put_errors(ERR_NO_MAP, "check_conf_params"));
+	if (game->player.initial_x < 0 || game->player.initial_y < 0)
+		return (put_errors(ERR_NO_PLAYER, "check_conf_params"));
 	return (true);
 }
 
@@ -80,6 +96,8 @@ bool				import_cub_file(t_game *game, char *file_path)
 	result_read_cub_file = read_cub_file(game, fd);
 	close(fd);
 	if (result_read_cub_file == false)
+		return (false);
+	if (check_conf_params(game) == false)
 		return (false);
 	if (game->map.rows * game->map.cols > (100 * 100))
 		return (put_errors(ERR_MAP_TOO_LARGE, "import_cub_file"));

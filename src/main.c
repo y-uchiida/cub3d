@@ -6,7 +6,7 @@
 /*   By: yoguchi <yoguchi@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/13 04:06:43 by yoguchi           #+#    #+#             */
-/*   Updated: 2020/12/30 11:25:01 by yoguchi          ###   ########.fr       */
+/*   Updated: 2020/12/31 04:08:28 by yoguchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,12 @@
 static bool			setup(t_game *game)
 {
 	game->running = true;
+	game->mlx.window.dist_prj_plane =
+		((game->mlx.window.width / 2) / tan(game->fov_angle / 2));
 	player_init(game);
 	frame_init(game);
 	ray_init(game);
 	minimap_init(game);
-	mlx_do_key_autorepeaton(game->mlx.ptr);
-	mlx_do_sync(game->mlx.ptr);
 	return (true);
 }
 
@@ -37,6 +37,9 @@ bool				game_init(t_game *game)
 	game->fov_occupancy = game->fov_angle / (360 * (PI / 180));
 	game->map.ceil_color = NONE;
 	game->map.floor_color = NONE;
+	game->map.rows = 0;
+	game->map.cols = 0;
+	textures_init(game);
 	game->player.x = FLT_MIN;
 	game->player.y = FLT_MIN;
 	game->player.initial_x = INT_MIN;
@@ -44,6 +47,19 @@ bool				game_init(t_game *game)
 	game->sprites.num = 0;
 	game->sprites.sprite = NULL;
 	return (true);
+}
+
+static bool			inspect_args(t_game *game, int argc, char **argv)
+{
+	int				arg_len;
+
+	if (argc > 3)
+		return (put_errors(ERR_TO_MUCH_ARGS, "inspect_args"));
+	arg_len = ft_strlen(argv[2]);
+	if (ft_strncmp(argv[2], "--save", ft_strlen(argv[2])) == 0 && arg_len == 6)
+		return (screenshot_save(game));
+	else
+		return (put_errors(ERR_INVALID_SECOND_ARG, "inspect_args"));
 }
 
 int					main(int argc, char *argv[])
@@ -60,9 +76,9 @@ int					main(int argc, char *argv[])
 	else
 		return (put_errors(ERR_NO_ARG, "main"));
 	setup(&game);
-	if ((argc == 3) && (ft_strncmp(argv[2], "--save", 6) == 0))
+	if (argc >= 3)
 	{
-		if (screenshot_save(&game) == false)
+		if (inspect_args(&game, argc, argv) == false)
 			game_exit(&game);
 	}
 	else

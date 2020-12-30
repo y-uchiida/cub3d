@@ -6,7 +6,7 @@
 /*   By: yoguchi <yoguchi@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 03:43:49 by yoguchi           #+#    #+#             */
-/*   Updated: 2020/12/14 03:44:11 by yoguchi          ###   ########.fr       */
+/*   Updated: 2020/12/31 02:40:25 by yoguchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,14 @@
 
 void		ft_free_splits(char **splits)
 {
-	char	**ptr;
+	int		i;
 
-	ptr = splits;
-	while (*ptr != NULL)
+	i = 0;
+	while (splits[i] != NULL)
 	{
-		free(*ptr);
-		ptr++;
+		ft_free_and_set_null(splits[i]);
+		i++;
 	}
-	free(splits);
-	splits = NULL;
+	ft_free_and_set_null(splits);
 	return ;
 }
