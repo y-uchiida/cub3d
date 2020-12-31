@@ -6,13 +6,13 @@
 #    By: yoguchi <yoguchi@student.42tokyo.jp>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/12/13 04:07:40 by yoguchi           #+#    #+#              #
-#    Updated: 2020/12/31 04:13:33 by yoguchi          ###   ########.fr        #
+#    Updated: 2020/12/31 15:16:04 by yoguchi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = cub3D
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror -g -O0
+CFLAGS = -Wall -Wextra -Werror
 LIBS = -L./lib -lft -lmlx -lXext -lX11 -lm
 
 SRCS = \
@@ -27,6 +27,7 @@ SRCS = \
  map_contain_the_coordinate\
  map_closed_check\
  minimap_init\
+ minimap_render\
  textures_init\
  textures_free\
  set_conf_items\

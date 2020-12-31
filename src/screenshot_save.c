@@ -6,7 +6,7 @@
 /*   By: yoguchi <yoguchi@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/27 00:16:46 by yoguchi           #+#    #+#             */
-/*   Updated: 2020/12/31 00:19:05 by yoguchi          ###   ########.fr       */
+/*   Updated: 2020/12/31 15:17:17 by yoguchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,12 +88,10 @@ bool					screenshot_save(t_game *game)
 	int					pad;
 
 	ft_putendl_fd("saving screenshot...", 1);
-	player_move(game);
-	ray_cast_all(game);
+	game_data_update(game);
 	render_fov(game);
-	map_render(game);
-	ray_render(game);
-	player_render(game);
+	sprite_render(game);
+	minimap_render(game);
 	frame = game->frame;
 	pad = (4 - ((int)frame.width * 3) % 4) % 4;
 	file_size = 54 + (3 * ((int)frame.width + pad) * (int)frame.height);
