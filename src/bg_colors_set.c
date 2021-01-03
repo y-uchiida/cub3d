@@ -6,7 +6,7 @@
 /*   By: yoguchi <yoguchi@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/30 16:12:14 by yoguchi           #+#    #+#             */
-/*   Updated: 2020/12/31 04:16:24 by yoguchi          ###   ########.fr       */
+/*   Updated: 2021/01/03 23:22:08 by yoguchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,11 @@ static bool			set_back_color(t_color *color, const char **rgb_str)
 	return (true);
 }
 
-static bool		inspect_rgb_tmp(char **rgb_str, char *rgb_tmp)
+static bool			inspect_rgb_tmp(char **rgb_str, char *rgb_tmp)
 {
-	int			i;
-	int			j;
-	char		*head;
+	int				i;
+	int				j;
+	char			*head;
 
 	i = 0;
 	j = 0;
@@ -65,10 +65,10 @@ static bool		inspect_rgb_tmp(char **rgb_str, char *rgb_tmp)
 	return (true);
 }
 
-static bool		parse_back_colors(const char **splits, char **rgb_str)
+static bool			parse_back_colors(const char **splits, char **rgb_str)
 {
-	char		*rgb_tmp;
-	bool		result_inspect_rgb_tmp;
+	char			*rgb_tmp;
+	bool			result_inspect_rgb_tmp;
 
 	if (ft_strnstr(splits[1], ",,", ft_strlen(splits[1])) != NULL)
 		return (put_errors(ERR_INVALID_COLOR_INPUT, "parse_back_colors"));
@@ -81,9 +81,9 @@ static bool		parse_back_colors(const char **splits, char **rgb_str)
 	return (true);
 }
 
-static bool		free_rgb_str(char **rgb_str)
+static bool			free_rgb_str(char **rgb_str)
 {
-	int			i;
+	int				i;
 
 	i = 0;
 	while (rgb_str[i] != NULL)
@@ -97,10 +97,10 @@ static bool		free_rgb_str(char **rgb_str)
 	return (true);
 }
 
-bool			bg_colors_set(t_game *game, const char **splits)
+bool				bg_colors_set(t_game *game, const char **splits)
 {
-	t_color		*color;
-	char		**rgb_str;
+	t_color			*color;
+	char			**rgb_str;
 
 	if (splits[2] != NULL ||
 		ft_isdigit(splits[1][ft_strlen(splits[1]) - 1]) == 0)

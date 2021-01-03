@@ -6,7 +6,7 @@
 /*   By: yoguchi <yoguchi@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/13 14:38:59 by yoguchi           #+#    #+#             */
-/*   Updated: 2020/12/30 10:44:07 by yoguchi          ###   ########.fr       */
+/*   Updated: 2021/01/04 04:16:01 by yoguchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,16 +51,23 @@ void			player_move(t_game *game)
 {
 	float		new[2];
 	t_player	*p;
+	t_sprite	*spr;
 	t_map		*map;
 
 	p = &(game->player);
+	spr = game->sprites.sprite;
+	while (spr->next != NULL)
+		spr = spr->next;
 	map = &(game->map);
 	p->rotation_angle += p->turn_direction * p->turn_speed;
+	p->rotation_angle += game->mlx.window.mouse_move_dist * p->turn_speed;
 	normalize_angle(&(p->rotation_angle));
 	if (p->move_direction != 0)
 	{
 		player_new_position(p, new);
-		if (map_has_wall_at(new[TABINDEX_X], new[TABINDEX_Y], map) != true)
+		if (map_has_wall_at(new[TABINDEX_X], new[TABINDEX_Y], map) != true &&
+			distance_between_points(new[TABINDEX_X], new[TABINDEX_Y],
+														spr->x, spr->y) > 5.0)
 		{
 			p->x = new[TABINDEX_X];
 			p->y = new[TABINDEX_Y];

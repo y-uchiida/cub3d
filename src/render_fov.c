@@ -6,7 +6,7 @@
 /*   By: yoguchi <yoguchi@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/20 17:54:10 by yoguchi           #+#    #+#             */
-/*   Updated: 2020/12/30 10:59:20 by yoguchi          ###   ########.fr       */
+/*   Updated: 2021/01/03 22:20:32 by yoguchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ static void			get_texture_pixel_color(t_game *game, int x, int y,
 													t_projection *prj)
 {
 	t_ray			*ray;
+	float			intensity;
 	float			propotion_x;
 	float			propotion_y;
 
@@ -71,8 +72,16 @@ static void			get_texture_pixel_color(t_game *game, int x, int y,
 	else
 		propotion_x = (fmodf(ray->wall_intercept_x, TILE_SIZE) / TILE_SIZE);
 	prj->tex_offset_x = (int)(prj->tex->width * propotion_x);
+	if ((ray->is_facing_down && !ray->wall_hit_vertical) ||
+		(!ray->is_facing_right && ray->wall_hit_vertical))
+		prj->tex_offset_x = prj->tex->width - prj->tex_offset_x - 1;
 	prj->texture_px_color =
 		image_get_pixel_color(prj->tex_offset_x, prj->tex_offset_y, prj->tex);
+	if (ray->wall_hit_vertical)
+		color_change_intensity(&(prj->texture_px_color), 0.8);
+	intensity = (ray->dist > 400.0) ? 400.0 / ray->dist : 1.0;
+	intensity = ft_set_max_f(0.40, intensity);
+	color_change_intensity(&(prj->texture_px_color), intensity);
 }
 
 static void			set_tex_color(t_game *game, int x, int y,

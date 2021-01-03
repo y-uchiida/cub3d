@@ -6,7 +6,7 @@
 /*   By: yoguchi <yoguchi@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/29 23:49:31 by yoguchi           #+#    #+#             */
-/*   Updated: 2020/12/30 10:42:32 by yoguchi          ###   ########.fr       */
+/*   Updated: 2021/01/03 22:21:10 by yoguchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ bool				minimap_init(t_game *game)
 	window = &(game->mlx.window);
 	minimap = &(game->minimap);
 	px_per_tile = TILE_SIZE * MINIMAP_SCALE_FACTOR;
-	if ((window->width < game->map.rows * px_per_tile) ||
-		(window->height < game->map.cols * px_per_tile))
+	if ((window->width < game->map.cols * px_per_tile) ||
+		(window->height < game->map.rows * px_per_tile))
 	{
 		minimap->scale_x = window->width / game->map.rows;
 		minimap->scale_y = window->height / game->map.cols;

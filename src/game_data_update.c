@@ -6,7 +6,7 @@
 /*   By: yoguchi <yoguchi@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/13 14:26:21 by yoguchi           #+#    #+#             */
-/*   Updated: 2020/12/30 10:14:08 by yoguchi          ###   ########.fr       */
+/*   Updated: 2021/01/04 04:16:02 by yoguchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,11 @@ int		game_data_update(t_game *game)
 	{
 		player_move(game);
 		ray_cast_all(game);
-		sprites_calc_distance(game);
-		sprites_sort(game);
+		if (game->sprites.num > 0)
+		{
+			sprites_calc_distance(game);
+			sprites_sort(game);
+		}
 	}
 	return (EXIT_SUCCESS);
 }

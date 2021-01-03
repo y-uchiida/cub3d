@@ -6,7 +6,7 @@
 /*   By: yoguchi <yoguchi@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/26 22:08:01 by yoguchi           #+#    #+#             */
-/*   Updated: 2021/01/03 20:27:20 by yoguchi          ###   ########.fr       */
+/*   Updated: 2021/01/03 23:23:54 by yoguchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,9 @@ static bool		optimize_sprites_list(t_game *game,
 	while (++i < spr_nm)
 	{
 		spr_tab[i - 1]->next = spr_tab[i];
-		spr_tab[i]->prev = spr_tab[i -1];
+		spr_tab[i]->prev = spr_tab[i - 1];
 		spr_tab[i]->next = (i < spr_nm - 1) ? spr_tab[i + 1] : NULL;
 	}
-
 	return (true);
 }
 

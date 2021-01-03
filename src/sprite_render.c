@@ -6,7 +6,7 @@
 /*   By: yoguchi <yoguchi@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/27 19:05:17 by yoguchi           #+#    #+#             */
-/*   Updated: 2020/12/30 11:06:08 by yoguchi          ###   ########.fr       */
+/*   Updated: 2021/01/04 05:10:58 by yoguchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,17 +39,24 @@ static void			set_sprite_position_data(t_game *game,
 	prj->drawing_width = prj->drawing_height;
 }
 
-static void			get_sprite_pixel_color(int x, int y, t_projection *prj)
+static void			get_sprite_pixel_color(t_sprite *sprite, int x, int y,
+														t_projection *prj)
 {
+	float			dist;
+	float			intensity;
 	float			propotion_x;
 	float			propotion_y;
 
+	dist = sprite->dist;
 	propotion_x = (float)x / (float)prj->drawing_width;
 	propotion_y = (float)y / (float)prj->drawing_height;
 	prj->tex_offset_x = (int)(prj->tex->width * propotion_x);
 	prj->tex_offset_y = (int)(prj->tex->height * propotion_y);
 	prj->texture_px_color = image_get_pixel_color(prj->tex_offset_x,
 												prj->tex_offset_y, prj->tex);
+	intensity = (dist > 400.0) ? 400.0 / dist : 1.0;
+	intensity = ft_set_max_f(0.40, intensity);
+	color_change_intensity(&(prj->texture_px_color), intensity);
 }
 
 static void			put_sprite_in_frame(t_game *game, t_sprite *sprite,
@@ -72,7 +79,7 @@ static void			put_sprite_in_frame(t_game *game, t_sprite *sprite,
 				continue ;
 			if (prj->top_px + prj->drawing_height - 1 < y)
 				break ;
-			get_sprite_pixel_color(x - (sprite->px_from_left_side
+			get_sprite_pixel_color(sprite, x - (sprite->px_from_left_side
 						- (prj->drawing_width / 2)), y - prj->top_px, prj);
 			if ((sprite->dist < game->rays.ray[x]->dist) &&
 				(get_t(prj->texture_px_color) == 0))

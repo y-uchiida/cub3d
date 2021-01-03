@@ -6,7 +6,7 @@
 /*   By: yoguchi <yoguchi@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/13 15:59:58 by yoguchi           #+#    #+#             */
-/*   Updated: 2021/01/03 16:56:34 by yoguchi          ###   ########.fr       */
+/*   Updated: 2021/01/04 06:07:10 by yoguchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,9 @@ typedef struct		s_mlx_window
 	int				max_width;
 	int				max_height;
 	float			dist_prj_plane;
+	bool			mouse_pressed;
+	int				mouse_pos_x;
+	int				mouse_move_dist;
 }					t_mlx_window;
 
 typedef	struct		s_mlx
@@ -171,6 +174,15 @@ typedef struct		s_sprites
 	t_sprite		*sprite;
 }					t_sprites;
 
+typedef struct		s_cross_hair
+{
+	t_img			*img;
+	int				x;
+	int				y;
+	int				width;
+	int				height;
+}					t_cross_hair;
+
 typedef struct		s_game
 {
 	bool			running;
@@ -184,6 +196,7 @@ typedef struct		s_game
 	t_rays			rays;
 	t_img			frame;
 	t_sprites		sprites;
+	t_cross_hair	*cross_hair;
 }					t_game;
 
 typedef struct		s_projection
@@ -261,14 +274,26 @@ void				normalize_angle(float *angle);
 float				distance_between_points(float x1, float y1,
 											float x2, float y2);
 int					game_data_update(t_game *game);
+int					close_button_pressed(t_game *game);
+int					key_pressed(int keycode, t_game *game);
+int					key_released(int keycode, t_game *game);
+int					mouse_move(int x, int y, t_game *game);
+int					mouse_left_button_pressed(int button_num,
+										int x, int y, t_game *game);
+int					mouse_left_button_released(int button_num,
+										int x, int y, t_game *game);
 void				game_exit(t_game *game);
 bool				map_has_wall_at(float x, float y, t_map *map);
 bool				sprite_new_item(t_game *game, int x, int y);
+bool				sprite_add_in_map(t_game *game);
 bool				sprites_calc_distance(t_game *game);
 bool				sprites_sort(t_game *game);
 void				sprite_render(t_game *game);
 void				put_sprite_marker(t_game *game);
 void				sprites_free(t_game *game);
+bool				cross_hair_init(t_game *game);
+void				cross_hair_render(t_game *game);
+void				cross_hair_free(t_game *game);
 void				render_fov(t_game *game);
 t_color				create_trgb(int t, int r, int g, int b);
 int					get_t(t_color trgb);

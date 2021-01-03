@@ -1,0 +1,15 @@
+R  800 600
+NO ./img/110_gakuseiryou_278-300.xpm
+SO ./img/110_gakuseiryou_278-300.xpm
+WE ./img/103_yobikoh_83-100.xpm
+EA ./img/103_yobikoh_83-100.xpm
+
+S ./img/102_sotsugyou.png_200-150_s.xpm
+F 72,72,72
+C 128,128,128
+
+11111
+10001
+10N01
+10001
+11111
