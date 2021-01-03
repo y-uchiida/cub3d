@@ -6,7 +6,7 @@
 /*   By: yoguchi <yoguchi@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/27 00:16:46 by yoguchi           #+#    #+#             */
-/*   Updated: 2020/12/31 15:17:17 by yoguchi          ###   ########.fr       */
+/*   Updated: 2021/01/03 20:28:11 by yoguchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,9 @@ static int				write_bmp_header(int fd, int file_size, t_game *game)
 	set_int_in_char(bmp_file_header + 2, file_size);
 	bmp_file_header[10] = (unsigned char)(54);
 	bmp_file_header[14] = (unsigned char)(40);
-	tmp = game->mlx.window.width;
+	tmp = game->frame.width;
 	set_int_in_char(bmp_file_header + 18, tmp);
-	tmp = game->mlx.window.height;
+	tmp = game->frame.height;
 	set_int_in_char(bmp_file_header + 22, tmp);
 	bmp_file_header[27] = (unsigned char)(1);
 	bmp_file_header[28] = (unsigned char)(24);
@@ -71,10 +71,10 @@ static int				write_bmp_data(int file, t_img *frame, int pad)
 			color = get_color(frame, x, y);
 			if (write(file, &color, 3) < 0)
 				return (false);
-			if (pad > 0 && write(file, &zero, pad) < 0)
-				return (false);
 			x++;
 		}
+		if (pad > 0 && write(file, &zero, pad) < 0)
+			return (false);
 		y++;
 	}
 	return (true);

@@ -6,7 +6,7 @@
 /*   By: yoguchi <yoguchi@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/13 15:59:58 by yoguchi           #+#    #+#             */
-/*   Updated: 2020/12/31 15:16:44 by yoguchi          ###   ########.fr       */
+/*   Updated: 2021/01/03 16:56:34 by yoguchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,6 +162,7 @@ typedef struct		s_sprite
 	float			angle_from_left_side;
 	int				px_from_left_side;
 	struct s_sprite	*next;
+	struct s_sprite	*prev;
 }					t_sprite;
 
 typedef struct		s_sprites
@@ -264,7 +265,7 @@ void				game_exit(t_game *game);
 bool				map_has_wall_at(float x, float y, t_map *map);
 bool				sprite_new_item(t_game *game, int x, int y);
 bool				sprites_calc_distance(t_game *game);
-void				sprites_sort(t_game *game);
+bool				sprites_sort(t_game *game);
 void				sprite_render(t_game *game);
 void				put_sprite_marker(t_game *game);
 void				sprites_free(t_game *game);

@@ -6,7 +6,7 @@
 /*   By: yoguchi <yoguchi@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/26 20:53:19 by yoguchi           #+#    #+#             */
-/*   Updated: 2020/12/31 04:20:31 by yoguchi          ###   ########.fr       */
+/*   Updated: 2021/01/03 15:33:52 by yoguchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ bool			sprite_new_item(t_game *game, int x, int y)
 	new_spr->y = (float)((y + 0.5) * TILE_SIZE);
 	new_spr->dist = FLT_MIN;
 	new_spr->next = NULL;
+	new_spr->prev = NULL;
 	if (game->sprites.num == 1)
 		game->sprites.sprite = new_spr;
 	else
@@ -34,6 +35,7 @@ bool			sprite_new_item(t_game *game, int x, int y)
 		while (last->next != NULL)
 			last = last->next;
 		last->next = new_spr;
+		new_spr->prev = last;
 	}
 	return (true);
 }

@@ -6,7 +6,7 @@
 /*   By: yoguchi <yoguchi@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/13 22:15:57 by yoguchi           #+#    #+#             */
-/*   Updated: 2020/12/31 04:17:15 by yoguchi          ###   ########.fr       */
+/*   Updated: 2021/01/03 03:38:05 by yoguchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,8 @@ static bool			parse_line(t_game *game, char *line)
 	data_head = (char *)line;
 	while (*data_head == ' ')
 		data_head++;
-	if (*data_head == '1' || game->map.rows > 0)
+	if (game->map.rows > 0 ||
+		*data_head == '0' || *data_head == '1' || *data_head == '2')
 		return (map_parse(game, line));
 	splits = ft_split(data_head, ' ');
 	ret = set_conf_items(game, (const char **)splits);
